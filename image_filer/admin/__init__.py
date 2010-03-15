@@ -14,6 +14,8 @@ from django.conf import settings
 
 admin.site.register([FolderPermission,])
 
+IMAGE_FILER_MEDIA_URL = getattr(settings, 'IMAGE_FILER_MEDIA_URL',
+                                settings.MEDIA_URL + 'image_filer')
 
 class PrimitivePermissionAwareModelAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
@@ -83,12 +85,14 @@ class ImageAdmin(PrimitivePermissionAwareModelAdmin):
     )
     class Media:
         css = {
-            'all': (settings.MEDIA_URL + 'image_filer/css/focal_point.css',)
+            'all': (
+                IMAGE_FILER_MEDIA_URL + 'css/focal_point.css',
+            ),
         }
         js = (
-            settings.MEDIA_URL + 'image_filer/js/jquery-1.3.2.min.js',
-            settings.MEDIA_URL + 'image_filer/js/raphael.js',
-            settings.MEDIA_URL + 'image_filer/js/focal_point.js',
+            IMAGE_FILER_MEDIA_URL + 'js/jquery-1.3.2.min.js',
+            IMAGE_FILER_MEDIA_URL + 'js/raphael.js',
+            IMAGE_FILER_MEDIA_URL + 'js/focal_point.js',
         )
     def admin_thumbnail(self,xs):
         return mark_safe('<img src="{{ IMAGE_FILER_MEDIA_URL }}icons/plainfolder_32x32.png" alt="Folder Icon" />')
