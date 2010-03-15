@@ -25,12 +25,12 @@ setup(
     package_data={
         '': ['*.txt', '*.rst',],
         'image_filer': [
-            'media/css/*.css',
-            'media/flash/*.swf',
-            'media/icons/*.png',
-            'media/img/*',
-            'media/js/*',
-            'media/slideshow2/*/*',
+            'media/*/css/*.css',
+            'media/*/flash/*.swf',
+            'media/*/icons/*.png',
+            'media/*/img/*',
+            'media/*/js/*',
+            'media/*/slideshow2/*/*',
             'templates/*/*.html',
             'templates/*/*/*.html',
             'templates/*/*/*/*.html',
