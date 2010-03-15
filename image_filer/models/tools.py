@@ -84,16 +84,12 @@ def clone_files_from_clipboard_to_folder(clipboard, folder):
         cloned_file.folder = folder
         cloned_file.save()
 
-def move_files_from_clipboard_to_folder(clipboard, folder):
-    return move_files_to_folder(clipboard, folder)
-
 def move_files_to_folder(clipboard, folder):
     for item in clipboard.clipboarditem_set.all():
         if item.is_copy:
-            file = duplicate(item.file)
-            print "duplicating!", item.file, "as", file
+            image_file = duplicate(item.file)
         else:
-            file = item.file
-        file.folder = folder
-        file.save()
+            image_file = item.file
+        image_file.folder = folder
+        image_file.save()
     return True

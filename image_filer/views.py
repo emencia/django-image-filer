@@ -253,7 +253,7 @@ def paste_clipboard_to_folder(request):
         folder = Folder.objects.get(id=request.POST.get('folder_id'))
         clipboard = Clipboard.objects.get(id=request.POST.get('clipboard_id'))
         if folder.has_add_children_permission(request):
-            tools.move_files_from_clipboard_to_folder(clipboard, folder)
+            tools.move_files_to_folder(clipboard, folder)
             tools.discard_clipboard(clipboard)
         else:
             raise PermissionDenied
