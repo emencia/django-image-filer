@@ -32,7 +32,6 @@ def migrate_picture_plugin_to_image_filer_publication(plugin_instance):
             'height'            : str(image_filer_image.height),
         })
     except Exception, e:
-        print u"missing image! %s" % e
         return
     
     data = {'table_name': image_filer_models.ImagePublication._meta.db_table,

@@ -96,20 +96,18 @@ def directory_listing(request, folder_id=None, viewtype=None):
         f.perms = _userperms(f, request)
         if hasattr(f, 'has_read_permission'):
             if f.has_read_permission(request):
-                #print "%s has read permission for %s" % (request.user, f)
                 folder_children.append(f)
             else:
-                pass#print "%s has NO read permission for %s" % (request.user, f)
+                pass
         else:
             folder_children.append(f) 
     for f in image_qs:
         f.perms = _userperms(f, request)
         if hasattr(f, 'has_read_permission'):
             if f.has_read_permission(request):
-                #print "%s has read permission for %s" % (request.user, f)
                 folder_files.append(f)
             else:
-                pass#print "%s has NO read permission for %s" % (request.user, f)
+                pass
         else:
             folder_files.append(f)
     try:
@@ -120,7 +118,6 @@ def directory_listing(request, folder_id=None, viewtype=None):
         }
     except:
         permissions = {}
-    #print admin.site.root_path
     return render_to_response('image_filer/directory_listing.html', {
             'folder':folder,
             'folder_children':folder_children,
@@ -180,10 +177,8 @@ def make_folder(request, folder_id=None):
             new_folder.parent = folder
             new_folder.owner = request.user
             new_folder.save()
-            #print u"Saving folder %s as child of %s" % (new_folder, folder)
             return HttpResponse('<script type="text/javascript">opener.dismissPopupAndReload(window);</script>')
     else:
-        #print u"New Folder GET, parent %s" % folder
         new_folder_form = NewFolderForm()
     return render_to_response('image_filer/include/new_folder_form.html', {
             'new_folder_form': new_folder_form,
@@ -210,7 +205,6 @@ def ajax_upload(request, folder_id=None):
     because of the missing cookie. Receives only one file at the time, 
     althow it may be a zip file, that will be unpacked.
     """
-    #print request.POST
     # flashcookie-hack (flash does not submit the cookie, so we send the
     # django sessionid over regular post
     try:
@@ -219,18 +213,11 @@ def ajax_upload(request, folder_id=None):
         session_key = request.POST.get('jsessionid')
         request.session = engine.SessionStore(session_key)
         request.user = User.objects.get(id=request.session['_auth_user_id'])
-        #print request.session['_auth_user_id']
-        #print session_key
-        #print engine
-        #print request.user
-        #print request.session
         # upload and save the file
         if not request.method == 'POST':
             return HttpResponse("must be POST")
         original_filename = request.POST.get('Filename')
         file = request.FILES.get('Filedata')
-        #print request.FILES
-        #print original_filename, file
         clipboard, was_clipboard_created = Clipboard.objects.get_or_create(user=request.user)
         files = generic_handle_file(file, original_filename)
         file_items = []
@@ -239,27 +226,24 @@ def ajax_upload(request, folder_id=None):
                 iext = os.path.splitext(iname)[1].lower()
             except:
                 iext = ''
-            #print "extension: ", iext
             if iext in ['.jpg','.jpeg','.png','.gif']:
                 imageform = UploadFileForm({'original_filename':iname,'owner': request.user.pk}, {'file':ifile})
                 if imageform.is_valid():
-                    #print 'imageform is valid'
                     try:
                         image = imageform.save(commit=False)
                         image.save()
                         file_items.append(image)
                     except Exception, e:
                         print e
-                    #print "save %s" % image
                     bi = ClipboardItem(clipboard=clipboard, file=image)
                     bi.save()
-                    #sprint image
                 else:
-                    pass#print imageform.errors
+                    pass
     except Exception, e:
-        print e
         raise e
-    return render_to_response('image_filer/include/clipboard_item_rows.html', {'items': file_items }, context_instance=RequestContext(request))
+    return render_to_response('image_filer/include/clipboard_item_rows.html', {
+        'items': file_items
+    }, context_instance=RequestContext(request))
 
 @login_required
 def paste_clipboard_to_folder(request):
@@ -290,7 +274,6 @@ def delete_clipboard(request):
 
 @login_required
 def move_file_to_clipboard(request):
-    print "move file"
     if request.method=='POST':
         file_id = request.POST.get("file_id", None)
         clipboard = tools.get_user_clipboard(request.user)

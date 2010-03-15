@@ -25,10 +25,8 @@ class PrimitivePermissionAwareModelAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         if hasattr(obj, 'has_edit_permission'):
             if obj.has_edit_permission(request):
-                #print "%s has edit permission for %s" % (request.user, obj)
                 return True
             else:
-                #print "%s has NO edit permission for %s" % (request.user, obj)
                 return False
         else:
             return True
@@ -103,7 +101,6 @@ class ImageAdmin(PrimitivePermissionAwareModelAdmin):
         instead of the default change_list_view
         '''
         r = super(ImageAdmin, self).response_change(request, obj)
-        #print r['Location']
         if r['Location']:
             # it was a successful save
             if r['Location'] in ['../']:
@@ -211,8 +208,6 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
         '''
         r = super(FolderAdmin, self).response_change(request, obj)
         if r['Location']:
-            print r['Location']
-            print obj
             # it was a successful save
             if r['Location'] in ['../']:
                 if obj.parent:

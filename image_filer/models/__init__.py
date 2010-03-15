@@ -19,7 +19,6 @@ from django.utils.functional import curry
 from django.core.urlresolvers import reverse
 import StringIO
 
-
 from django.contrib.auth import models as auth_models
 
 from django.conf import settings
@@ -107,12 +106,15 @@ class Folder(models.Model):
         for files in rel:
             c += files.count()
         return c
+
     @property
     def children_count(self):
         return self.children.count()
+
     @property
     def item_count(self):
         return self.file_count + self.children_count
+
     @property
     def files(self):
         rel = self._get_file_relationships()
@@ -124,10 +126,13 @@ class Folder(models.Model):
     
     def has_edit_permission(self, request):
         return self.has_generic_permission(request, 'edit')
+
     def has_read_permission(self, request):
         return self.has_generic_permission(request, 'read')
+
     def has_add_children_permission(self, request):
         return self.has_generic_permission(request, 'add_children')
+
     def has_generic_permission(self, request, type):
         """
         Return true if the current user has permission on this
@@ -157,6 +162,7 @@ class Folder(models.Model):
     
     def __unicode__(self):
         return u"%s" % (self.name,)
+
     class Meta:
         unique_together = (('parent','name'),)
         ordering = ('name',)
@@ -172,11 +178,11 @@ except mptt.AlreadyRegistered:
 class Image(AbstractFile):
     SIDEBAR_IMAGE_WIDTH = 210
     DEFAULT_THUMBNAILS = {
-                        'admin_clipboard_icon': {'size': (32,32), 'options': ['crop','upscale']},
-                        'admin_sidebar_preview': {'size': (SIDEBAR_IMAGE_WIDTH,SIDEBAR_IMAGE_WIDTH), 'options': []},
-                        'admin_directory_listing_icon': {'size': (48,48), 'options': ['crop','upscale']},
-                        'admin_tiny_icon': {'size': (32,32), 'options': ['crop','upscale']},
-                    }
+        'admin_clipboard_icon': {'size': (32,32), 'options': ['crop','upscale']},
+        'admin_sidebar_preview': {'size': (SIDEBAR_IMAGE_WIDTH,SIDEBAR_IMAGE_WIDTH), 'options': []},
+        'admin_directory_listing_icon': {'size': (48,48), 'options': ['crop','upscale']},
+        'admin_tiny_icon': {'size': (32,32), 'options': ['crop','upscale']},
+    }
     file_type = 'image'
     file = thumbnail_fields.ImageWithThumbnailsField(
                     upload_to=IMAGE_FILER_UPLOAD_ROOT,
@@ -223,11 +229,13 @@ class Image(AbstractFile):
         if not self.name or not self.contact:
             return False
         return True
+
     def sidebar_image_ratio(self):
         if self.width:
             return float(self.width)/float(self.SIDEBAR_IMAGE_WIDTH)
         else:
             return 1.0
+
     def save(self, *args, **kwargs):
         if self.date_taken is None:
             try:
@@ -268,6 +276,7 @@ class Image(AbstractFile):
             # probably the image is missing. nevermind.
             pass
         super(Image, self).save(*args, **kwargs)
+
     def _get_exif(self):
         if hasattr(self, '_exif_cache'):
             return self._exif_cache
@@ -278,12 +287,16 @@ class Image(AbstractFile):
                 self._exif_cache = {}
         return self._exif_cache
     exif = property(_get_exif)
+
     def has_edit_permission(self, request):
         return self.has_generic_permission(request, 'edit')
+
     def has_read_permission(self, request):
         return self.has_generic_permission(request, 'read')
+
     def has_add_children_permission(self, request):
         return self.has_generic_permission(request, 'add_children')
+
     def has_generic_permission(self, request, type):
         """
         Return true if the current user has permission on this
@@ -300,32 +313,35 @@ class Image(AbstractFile):
             return self.folder.has_generic_permission(request, type)
         else:
             return False
-                
+
+    @property
     def label(self):
         if self.name in ['',None]:
             return self.original_filename or 'unnamed file'
         else:
             return self.name
-    label = property(label)
+
     @property
     def width(self):
         return self._width_field or 0
+
     @property
     def height(self):
         return self._height_field or 0
+
     @property
     def size(self):
         try:
             return self.file.size
         except:
             return 0
+
     @property
     def thumbnails(self):
         # we build an extra dict here mainly
         # to prevent the default errors to 
         # get thrown and to add a default missing
         # image (not yet)
-        print "getting thumbnails for %s" % self.id
         if not hasattr(self, '_thumbnails'):
             tns = {}
             #for name, tn in self.file.extra_thumbnails.items():
@@ -334,17 +350,19 @@ class Image(AbstractFile):
             for name, opts in Image.DEFAULT_THUMBNAILS.items():
                 tns[name] = unicode(self.file._build_thumbnail(opts))
             self._thumbnails = tns
-            print tns
         return self._thumbnails
+
     @property
     def url(self):
         '''
         needed to make this behave like a ImageField
         '''
         return self.file.url
+
     @property
     def absolute_image_url(self):
         return self.url
+
     @property
     def rel_image_url(self):
         'return the image url relative to MEDIA_URL'
@@ -355,6 +373,7 @@ class Image(AbstractFile):
             return rel_url
         except Exception, e:
             return ''
+
     def __unicode__(self):
         # this simulates the way a file field works and
         # allows the sorl thumbnail tag to use the Image model
@@ -363,16 +382,20 @@ class Image(AbstractFile):
 
 
 class FolderPermissionManager(models.Manager):
+
     def get_read_id_list(self, user):
         """
         Give a list of a Folders where the user has read rights or the string
         "All" if the user has all rights.
         """
         return self.__get_id_list(user, "can_read")
+
     def get_edit_id_list(self, user):
         return self.__get_id_list(user, "can_edit")
+
     def get_add_children_id_list(self, user):
         return self.__get_id_list(user, "can_add_children")
+
     def __get_id_list(self, user, attr):
         if user.is_superuser:
             return 'All'
@@ -415,7 +438,8 @@ class FolderPermissionManager(models.Manager):
                         if id in allow_list:
                             allow_list.remove(id)
         return allow_list
-            
+
+
 class FolderPermission(models.Model):
     ALL = 0
     THIS = 1
@@ -465,6 +489,7 @@ class FolderPermission(models.Model):
                 perms.append(s)
         perms = ', '.join(perms)
         return u"Folder: '%s'->%s [%s] [%s]" % (name, unicode(self.TYPES[self.type][1]), perms, usergroup)
+
     class Meta:
         verbose_name = _('Folder Permission')
         verbose_name_plural = _('Folder Permissions')
@@ -485,6 +510,7 @@ class Clipboard(models.Model):
     
     def clone(self, to_folder=None):
         pass
+
     def set_image_manipulation_profile(self):
         pass
     
@@ -503,16 +529,20 @@ class DummyFolder(object):
     can_have_subfolders = False
     parent = None
     _icon = "plainfolder"
+
     @property
     def children(self):
         return Folder.objects.filter(id__in=[0]) # empty queryset
+
     @property
     def files(self):
         return Image.objects.filter(id__in=[0]) # empty queryset
     parent_url = None
+
     @property
     def image_files(self):
         return self.files
+
     @property
     def icons(self):
         r = {}
@@ -531,6 +561,7 @@ class UnfiledImages(DummyFolder):
     name = _("unfiled files")
     is_root = True
     _icon = "unfiled_folder"
+
     def _files(self):
         return Image.objects.filter(folder__isnull=True)
     files = property(_files)
@@ -539,6 +570,7 @@ class ImagesWithMissingData(DummyFolder):
     name = _("files with missing metadata")
     is_root = True
     _icon = "incomplete_metadata_folder"
+
     @property
     def files(self):
         return Image.objects.filter(has_all_mandatory_data=False)
@@ -548,6 +580,7 @@ class FolderRoot(DummyFolder):
     is_root = True
     is_smart_folder = False
     can_have_subfolders = True
+
     @property
     def children(self):
         return Folder.objects.filter(parent__isnull=True)
@@ -556,12 +589,14 @@ class FolderRoot(DummyFolder):
 if 'cms' in settings.INSTALLED_APPS:
     from cms.models import CMSPlugin, Page
     from sorl.thumbnail.main import DjangoThumbnail
+
     class ImagePublication(CMSPlugin):
         LEFT = "left"
         RIGHT = "right"
-        FLOAT_CHOICES = ((LEFT, _("left")),
-                         (RIGHT, _("right")),
-                         )
+        FLOAT_CHOICES = (
+            (LEFT, _("left")),
+            (RIGHT, _("right")),
+        )
         image = ImageFilerModelImageField()
         alt_text = models.CharField(null=True, blank=True, max_length=255)
         caption = models.CharField(null=True, blank=True, max_length=255)
@@ -573,13 +608,10 @@ if 'cms' in settings.INSTALLED_APPS:
         page_link = models.ForeignKey(Page, verbose_name=_("page"), null=True, blank=True, help_text=_("if present image will be clickable"))
         float = models.CharField(_("side"), max_length=10, blank=True, null=True, choices=FLOAT_CHOICES)
         
-        
-        
         #crop_ax = models.PositiveIntegerField(null=True, blank=True)
         #crop_ay = models.PositiveIntegerField(null=True, blank=True)
         #crop_bx = models.PositiveIntegerField(null=True, blank=True)
         #crop_by = models.PositiveIntegerField(null=True, blank=True)
-        
         
         show_author = models.BooleanField(default=False)
         show_copyright = models.BooleanField(default=False)
@@ -596,17 +628,20 @@ if 'cms' in settings.INSTALLED_APPS:
             w = self.width or 128
             tn = unicode(DjangoThumbnail(self.image.file, (w,h), opts=['crop','upscale'] ))
             return tn
+
         def __unicode__(self):
             if self.image:
                 return self.image.label
             else:
                 return u"Image Publication %s" % self.caption
             return ''
+
         @property
         def alt(self): return self.alt_text
+
         @property
         def url(self): return self.free_link
-    
+
     class ImageFilerTeaser(CMSPlugin):
         """
         A Teaser
@@ -622,10 +657,10 @@ if 'cms' in settings.INSTALLED_APPS:
     
     class FolderPublication(CMSPlugin):
         folder = ImageFilerModelFolderField()
+
         class Meta:
             db_table = 'cmsplugin_imagefolder'
  
-        
     if 'reversion' in settings.INSTALLED_APPS:       
         import reversion 
         reversion.register(ImagePublication, follow=["cmsplugin_ptr"])

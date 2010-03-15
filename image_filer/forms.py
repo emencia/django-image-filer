@@ -10,6 +10,5 @@ class ImagePublicationForm(ModelForm):
         model = ImagePublication
         exclude = ('page', 'position', 'placeholder', 'language', 'plugin_type')
     def __init__(self, *args, **kwargs):
-        #print "test: ", ImagePublication.image.rel
         return super(ImagePublicationForm, self).__init__(*args, **kwargs)
         #self.fields['image'].widget = ForeignKeyRawIdWidget('Image')

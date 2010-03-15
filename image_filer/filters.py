@@ -91,7 +91,6 @@ class ResizeFilter(BaseFilter):
                     ratio = float(new_width)/cur_width
             new_dimensions = (int(round(cur_width*ratio)),
                               int(round(cur_height*ratio)))
-            print new_dimensions
             if new_dimensions[0] > cur_width or \
                new_dimensions[1] > cur_height:
                 if not upscale:
@@ -114,7 +113,6 @@ class ReflectionFilter(BaseFilter):
         and Based on the original concept by Bernd Schlapsi
     
         """
-        print "reflection filter"
         # convert bgcolor string to rgb value
         background_color = ImageColor.getrgb(bgcolor)
     
