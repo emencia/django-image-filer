@@ -499,8 +499,8 @@ class Clipboard(models.Model):
     user = models.ForeignKey(auth_models.User, related_name="clipboards")
     files = models.ManyToManyField(Image, related_name="clipboards", through='ClipboardItem')
     
-    def append_file(self, file):
-        newitem = ClipboardItem(file=file, clipboard=self)
+    def append_file(self, file, is_copy=False):
+        newitem = ClipboardItem(file=file, clipboard=self, is_copy=is_copy)
         newitem.save()
     
     def empty(self):
@@ -521,6 +521,7 @@ class ClipboardItem(models.Model):
     file = models.ForeignKey(Image)
     clipboard = models.ForeignKey(Clipboard)
     is_checked = models.BooleanField(default=True)
+    is_copy = models.BooleanField(default=False)
 
 class DummyFolder(object):
     name = "Dummy Folder"

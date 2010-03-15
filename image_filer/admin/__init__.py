@@ -201,6 +201,7 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
             parent = Folder.objects.get(id=parent_id)
             r.parent = parent
         return r
+
     def response_change(self, request, obj):
         '''
         Overrides the default to be able to forward to the directory listing
@@ -220,10 +221,12 @@ class FolderAdmin(PrimitivePermissionAwareModelAdmin):
                 # this means it probably was a save_and_continue_editing
                 pass
         return r
+
     def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
         extra_context = {'show_delete': True}
         context.update(extra_context)
-        return super(FolderAdmin, self).render_change_form(request=request, context=context, add=False, change=False, form_url=form_url, obj=obj)
+        return super(FolderAdmin, self).render_change_form(request=request,
+            context=context, add=False, change=False, form_url=form_url, obj=obj)
     
     def delete_view(self, request, object_id, extra_context=None):
         '''
@@ -295,6 +298,7 @@ class ClipboardAdmin(admin.ModelAdmin):
             url(r'^operations/discard_clipboard/$', self.admin_site.admin_view(views.discard_clipboard), name='image_filer-discard_clipboard'),
             url(r'^operations/delete_clipboard/$', self.admin_site.admin_view(views.delete_clipboard), name='image_filer-delete_clipboard'),
             url(r'^operations/move_file_to_clipboard/$', self.admin_site.admin_view(views.move_file_to_clipboard), name='image_filer-move_file_to_clipboard'),
+            url(r'^operations/copy_file_to_clipboard/$', self.admin_site.admin_view(views.copy_file_to_clipboard), name='image_filer-copy_file_to_clipboard'),
             # upload does it's own permission stuff (because of the stupid flash missing cookie stuff)
             url(r'^operations/upload/$', views.ajax_upload, name='image_filer-ajax_upload'),
         )

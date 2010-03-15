@@ -80,6 +80,7 @@ class ImageFilerModelImageField(models.ForeignKey):
     def __init__(self, **kwargs):
         from image_filer.models import Image
         return super(ImageFilerModelImageField,self).__init__(Image, **kwargs)
+
     def formfield(self, **kwargs):
         # This is a fairly standard way to set up some defaults
         # while letting the caller override them.
@@ -90,6 +91,7 @@ class ImageFilerModelImageField(models.ForeignKey):
         }
         defaults.update(kwargs)
         return super(ImageFilerModelImageField, self).formfield(**defaults)
+
     def south_field_triple(self):
         "Returns a suitable description of this field for South."
         # We'll just introspect ourselves, since we inherit.
@@ -148,6 +150,7 @@ class ImageFilerFolderWidget(ForeignKeyRawIdWidget):
 
 class ImageFilerFolderFormField(forms.ModelChoiceField):
     widget = ImageFilerFolderWidget 
+
     def __init__(self, rel, queryset, to_field_name, *args, **kwargs):
         self.rel = rel
         self.queryset = queryset
@@ -161,6 +164,7 @@ class ImageFilerModelFolderField(models.ForeignKey):
     def __init__(self, **kwargs):
         from image_filer.models import Folder
         return super(ImageFilerModelFolderField,self).__init__(Folder, **kwargs)
+
     def formfield(self, **kwargs):
         # This is a fairly standard way to set up some defaults
         # while letting the caller override them.

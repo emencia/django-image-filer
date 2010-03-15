@@ -16,6 +16,8 @@ from django.contrib.auth.models import User
 from django import forms
 
 from django.contrib import admin
+from image_filer.utils.files import generic_handle_file
+
 
 class NewFolderForm(forms.ModelForm):
     class Meta:
@@ -24,13 +26,16 @@ class NewFolderForm(forms.ModelForm):
 
 def popup_status(request):
     return request.REQUEST.has_key('_popup') or request.REQUEST.has_key('pop')
+
 def selectfolder_status(request):
     return request.REQUEST.has_key('select_folder')
+
 def popup_param(request):
     if popup_status(request):
         return "?_popup=1"
     else:
         return ""
+
 def _userperms(item, request):
     r = []
     ps = ['read', 'edit', 'add_children']
@@ -41,7 +46,7 @@ def _userperms(item, request):
             if x:
                 r.append( p )
     return r
-    
+
 @login_required
 def directory_listing(request, folder_id=None, viewtype=None):
     clipboard = tools.get_user_clipboard(request.user)
@@ -53,15 +58,15 @@ def directory_listing(request, folder_id=None, viewtype=None):
         folder = FolderRoot()
     else:
         folder = Folder.objects.get(id=folder_id)
-        
+
     # search
     def filter_folder(qs, terms=[]):
         for term in terms:
-            qs = qs.filter(Q(name__icontains=term) | Q(owner__username__icontains=term) | Q(owner__first_name__icontains=term) | Q(owner__last_name__icontains=term)  )  
+            qs = qs.filter(Q(name__icontains=term) | Q(owner__username__icontains=term) | Q(owner__first_name__icontains=term) | Q(owner__last_name__icontains=term)  )
         return qs
     def filter_image(qs, terms=[]):
         for term in terms:
-            qs = qs.filter( Q(name__icontains=term) | Q(original_filename__icontains=term ) | Q(owner__username__icontains=term) | Q(owner__first_name__icontains=term) | Q(owner__last_name__icontains=term) )
+            qs = qs.filter( Q(name__icontains=term) | Q(original_filename__icontains=term ) | Q(owner__username__icontains=term) | Q(owner__first_name__icontains=term) | Q(owner__last_name__icontains=term))
         return qs
     q = request.GET.get('q', None)
     if q:
@@ -80,16 +85,16 @@ def directory_listing(request, folder_id=None, viewtype=None):
             image_qs = Image.objects.all()
         folder_qs = filter_folder(folder_qs, search_terms)
         image_qs = filter_image(image_qs, search_terms)
-            
+
         show_result_count = True
     else:
         folder_qs = folder.children.all()
         image_qs = folder.image_files.all()
         show_result_count = False
-    
+
     folder_qs = folder_qs.order_by('name')
     image_qs = image_qs.order_by('name')
-    
+
     folder_children = []
     folder_files = []
     for f in folder_qs:
@@ -100,7 +105,7 @@ def directory_listing(request, folder_id=None, viewtype=None):
             else:
                 pass
         else:
-            folder_children.append(f) 
+            folder_children.append(f)
     for f in image_qs:
         f.perms = _userperms(f, request)
         if hasattr(f, 'has_read_permission'):
@@ -131,7 +136,7 @@ def directory_listing(request, folder_id=None, viewtype=None):
             'limit_search_to_folder': limit_search_to_folder,
             'is_popup': popup_status(request),
             'select_folder': selectfolder_status(request),
-            'root_path': "/%s" % admin.site.root_path, # needed in the admin/base.html template for logout links and stuff 
+            'root_path': "/%s" % admin.site.root_path, # needed in the admin/base.html template for logout links and stuff
         }, context_instance=RequestContext(request))
 
 @login_required
@@ -139,7 +144,7 @@ def edit_folder(request, folder_id):
     # TODO: implement edit_folder view
     folder=None
     return render_to_response('image_filer/folder_edit.html', {
-            'folder':folder,
+            'folder': folder,
             'is_popup': request.REQUEST.has_key('_popup') or request.REQUEST.has_key('pop'),
         }, context_instance=RequestContext(request))
 
@@ -148,7 +153,7 @@ def edit_image(request, folder_id):
     # TODO: implement edit_image view
     folder=None
     return render_to_response('image_filer/image_edit.html', {
-            'folder':folder,
+            'folder': folder,
             'is_popup': request.REQUEST.has_key('_popup') or request.REQUEST.has_key('pop'),
         }, context_instance=RequestContext(request))
 
@@ -160,7 +165,7 @@ def make_folder(request, folder_id=None):
         folder = Folder.objects.get(id=folder_id)
     else:
         folder = None
-        
+
     if request.user.is_superuser:
         pass
     elif folder == None:
@@ -169,7 +174,7 @@ def make_folder(request, folder_id=None):
     elif not folder.has_add_children_permission(request):
         # the user does not have the permission to add subfolders
         raise PermissionDenied
-    
+
     if request.method == 'POST':
         new_folder_form = NewFolderForm(request.POST)
         if new_folder_form.is_valid():
@@ -189,27 +194,24 @@ class UploadFileForm(forms.ModelForm):
     class Meta:
         model=Image
         #fields = ('file',)
-        
-from image_filer.utils.files import generic_handle_file
 
 @login_required
 def upload(request):
     return render_to_response('image_filer/upload.html', {
-                    'title': u'Upload files',
-                    'is_popup': popup_status(request),
-                    }, context_instance=RequestContext(request))
+        'title': 'Upload files',
+        'is_popup': popup_status(request),
+    }, context_instance=RequestContext(request))
 
 def ajax_upload(request, folder_id=None):
     """
     receives an upload from the flash uploader and fixes the session
-    because of the missing cookie. Receives only one file at the time, 
+    because of the missing cookie. Receives only one file at the time,
     althow it may be a zip file, that will be unpacked.
     """
     # flashcookie-hack (flash does not submit the cookie, so we send the
     # django sessionid over regular post
     try:
         engine = __import__(settings.SESSION_ENGINE, {}, {}, [''])
-        #session_key = request.POST.get('jsessionid')
         session_key = request.POST.get('jsessionid')
         request.session = engine.SessionStore(session_key)
         request.user = User.objects.get(id=request.session['_auth_user_id'])
@@ -248,29 +250,28 @@ def ajax_upload(request, folder_id=None):
 @login_required
 def paste_clipboard_to_folder(request):
     if request.method=='POST':
-        folder = Folder.objects.get( id=request.POST.get('folder_id') )
-        clipboard = Clipboard.objects.get( id=request.POST.get('clipboard_id') )
+        folder = Folder.objects.get(id=request.POST.get('folder_id'))
+        clipboard = Clipboard.objects.get(id=request.POST.get('clipboard_id'))
         if folder.has_add_children_permission(request):
             tools.move_files_from_clipboard_to_folder(clipboard, folder)
             tools.discard_clipboard(clipboard)
         else:
             raise PermissionDenied
-    return HttpResponseRedirect( '%s%s' % (request.REQUEST.get('redirect_to', ''), popup_param(request) ) )
+    return HttpResponseRedirect('%s%s' % (request.REQUEST.get('redirect_to', ''), popup_param(request)))
 
 @login_required
 def discard_clipboard(request):
     if request.method=='POST':
-        clipboard = Clipboard.objects.get( id=request.POST.get('clipboard_id') )
+        clipboard = Clipboard.objects.get(id=request.POST.get('clipboard_id'))
         tools.discard_clipboard(clipboard)
-    return HttpResponseRedirect( '%s%s' % (request.POST.get('redirect_to', ''), popup_param(request) ) )
+    return HttpResponseRedirect('%s%s' % (request.POST.get('redirect_to', ''), popup_param(request)))
 
 @login_required
 def delete_clipboard(request):
     if request.method=='POST':
-        clipboard = Clipboard.objects.get( id=request.POST.get('clipboard_id') )
+        clipboard = Clipboard.objects.get(id=request.POST.get('clipboard_id'))
         tools.delete_clipboard(clipboard)
-    return HttpResponseRedirect( '%s%s' % (request.POST.get('redirect_to', ''), popup_param(request) ) )
-
+    return HttpResponseRedirect('%s%s' % (request.POST.get('redirect_to', ''), popup_param(request)))
 
 @login_required
 def move_file_to_clipboard(request):
@@ -283,15 +284,28 @@ def move_file_to_clipboard(request):
                 tools.move_file_to_clipboard([file], clipboard)
             else:
                 raise PermissionDenied
-    return HttpResponseRedirect( '%s%s' % (request.POST.get('redirect_to', ''), popup_param(request) ) )
+    return HttpResponseRedirect('%s%s' % (request.POST.get('redirect_to', ''), popup_param(request)))
+
+@login_required
+def copy_file_to_clipboard(request):
+    if request.method=='POST':
+        file_id = request.POST.get("file_id", None)
+        clipboard = tools.get_user_clipboard(request.user)
+        if file_id:
+            file = Image.objects.get(id=file_id)
+            if file.has_edit_permission(request):
+                tools.copy_file_to_clipboard([file], clipboard)
+            else:
+                raise PermissionDenied
+    return HttpResponseRedirect('%s%s' % (request.POST.get('redirect_to', ''), popup_param(request)))
 
 @login_required
 def clone_files_from_clipboard_to_folder(request):
     if request.method=='POST':
-        clipboard = Clipboard.objects.get( id=request.POST.get('clipboard_id') )
-        folder = Folder.objects.get( id=request.POST.get('folder_id') )
+        clipboard = Clipboard.objects.get(id=request.POST.get('clipboard_id'))
+        folder = Folder.objects.get(id=request.POST.get('folder_id'))
         tools.clone_files_from_clipboard_to_folder(clipboard, folder)
-    return HttpResponseRedirect( '%s%s' % (request.POST.get('redirect_to', ''), popup_param(request) ) )
+    return HttpResponseRedirect('%s%s' % (request.POST.get('redirect_to', ''), popup_param(request)))
 
 class ImageExportForm(forms.Form):
     FORMAT_CHOICES = (
@@ -301,19 +315,19 @@ class ImageExportForm(forms.Form):
         #('tif', 'tif'),
     )
     format = forms.ChoiceField(choices=FORMAT_CHOICES)
-    
+
     crop = forms.BooleanField(required=False)
     upscale = forms.BooleanField(required=False)
-    
+
     width = forms.IntegerField()
     height = forms.IntegerField()
-    
-    
+
+
 import filters
 @login_required
 def export_image(request, image_id):
     image = Image.objects.get(id=image_id)
-    
+
     if request.method=='POST':
         form = ImageExportForm(request.POST)
         if form.is_valid():
@@ -333,8 +347,8 @@ def export_image(request, image_id):
                 mimetype='image/jpg'
                 pil_format = 'JPEG'
             im = resize_filter.render(im,
-                    size_x=int(form.cleaned_data['width']), 
-                    size_y=int(form.cleaned_data['height']), 
+                    size_x=int(form.cleaned_data['width']),
+                    size_y=int(form.cleaned_data['height']),
                     crop=form.cleaned_data['crop'],
                     upscale=form.cleaned_data['upscale']
             )
@@ -347,4 +361,4 @@ def export_image(request, image_id):
     return render_to_response('image_filer/image_export_form.html', {
             'form': form,
             'image': image
-    }, context_instance=RequestContext(request)) 
+    }, context_instance=RequestContext(request))
