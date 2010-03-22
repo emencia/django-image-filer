@@ -664,5 +664,6 @@ if 'cms' in settings.INSTALLED_APPS:
  
     if 'reversion' in settings.INSTALLED_APPS:       
         import reversion 
-        reversion.register(ImagePublication, follow=["cmsplugin_ptr"])
-        reversion.register(FolderPublication, follow=["cmsplugin_ptr"])
+        from cms.utils.helpers import reversion_register
+        reversion_register(ImagePublication, follow=["cmsplugin_ptr"])
+        reversion_register(FolderPublication, follow=["cmsplugin_ptr"])
