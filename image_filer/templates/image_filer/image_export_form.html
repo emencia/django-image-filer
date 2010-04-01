@@ -4,7 +4,7 @@
 
 {% block coltype %}colMS{% endblock %}
 {% block content %}
-<form action="{% url admin:image_filer-export_image image.id %}" method="post">
+<form action="{% url admin:image_filer-export_image image.id %}" method="post">{% csrf_token %}
 	<table>
 	{{ form }}
 	</table>

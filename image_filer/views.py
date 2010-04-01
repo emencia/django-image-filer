@@ -18,6 +18,8 @@ from django import forms
 from django.contrib import admin
 from image_filer.utils.files import generic_handle_file
 
+from django.views.decorators.csrf import csrf_exempt
+
 
 class NewFolderForm(forms.ModelForm):
     class Meta:
@@ -202,6 +204,7 @@ def upload(request):
         'is_popup': popup_status(request),
     }, context_instance=RequestContext(request))
 
+@csrf_exempt
 def ajax_upload(request, folder_id=None):
     """
     receives an upload from the flash uploader and fixes the session
