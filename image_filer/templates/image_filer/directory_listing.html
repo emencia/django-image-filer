@@ -80,8 +80,8 @@
 
 {% block breadcrumbs %}
 <div class="breadcrumbs">
-	<a href="/admin/">Home</a> › <a href="/admin/image_filer/">Image Portfolio</a> › 
-	<a href="{% url admin:image_filer-directory_listing-root %}">Root</a>
+	<a href="/admin/">{% trans "Home" %}</a> › <a href="/admin/image_filer/">{% trans "Image Portfolio" %}</a> › 
+	<a href="{% url admin:image_filer-directory_listing-root %}">{% trans "Root" %}</a>
 	{% for ancestor_folder in folder.get_ancestors %}
 	 › <a href="{% url admin:image_filer-directory_listing ancestor_folder.id %}">{{ ancestor_folder.name }}</a>
 	 {% endfor %} › 

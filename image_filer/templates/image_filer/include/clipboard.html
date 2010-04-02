@@ -2,14 +2,14 @@
 {% for clipboard in user.clipboards.all %}
 <table style="width: 100%; border: 1px solid #DDDDDD;" class="clipboard">
 	<thead>
-		<th colspan=3>Clipboard</th>
+		<th colspan=3>{% trans "Clipboard" %}</th>
 	</thead>
 	<tbody id="fileInputQueue" class="fileUploadQueue">{% if clipboard.files.count %}{% with clipboard.files.all as items %}
 		{% include "image_filer/include/clipboard_item_rows.html" %}
 		{% endwith %}
 	{% else %}
 		<tr class="noItemsRow">
-			<td colspan=3 style="color: gray;text-align: center; height: 48px; vertical-align: middle;">the clipboard is empty</td>
+			<td colspan=3 style="color: gray;text-align: center; height: 48px; vertical-align: middle;">{% trans "the clipboard is empty" %}</td>
 		</tr>
 	{% endif %}
 	</tbody>
