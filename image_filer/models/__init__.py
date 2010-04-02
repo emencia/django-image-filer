@@ -208,18 +208,8 @@ class Image(AbstractFile):
     must_always_publish_author_credit = models.BooleanField(_('must always publish author credit'), default=False)
     must_always_publish_copyright = models.BooleanField(_('must always publish copyright'), default=False)
 
-    # # TODO: Factor out customer specific fields... maybe a m2m?
-    # can_use_for_web = models.BooleanField(default=True)
-    # can_use_for_print = models.BooleanField(default=True)
-    # can_use_for_teaching = models.BooleanField(default=True)
-    # can_use_for_research = models.BooleanField(default=True)
-    # can_use_for_private_use = models.BooleanField(default=True)
-    # 
-    # usage_restriction_notes = models.TextField(null=True, blank=True, )
     notes = models.TextField(_('notes'), null=True, blank=True)
-
     has_all_mandatory_data = models.BooleanField(_('has all mandatory data'), default=False, editable=False)
-
     subject_location = models.CharField(_('subject location'), max_length=64, null=True, blank=True, default=None)
 
     def _check_validity(self):
