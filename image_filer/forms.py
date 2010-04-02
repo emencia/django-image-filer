@@ -1,10 +1,15 @@
 from django import forms
-from image_filer.models import Folder
+from image_filer.models import Folder, Image
 
 class NewFolderForm(forms.ModelForm):
     class Meta:
         model = Folder
         fields = ('name', )
+
+
+class UploadFileForm(forms.ModelForm):
+    class Meta:
+        model = Image
 
 
 class ImageExportForm(forms.Form):
@@ -20,3 +25,4 @@ class ImageExportForm(forms.Form):
 
     width = forms.IntegerField()
     height = forms.IntegerField()
+

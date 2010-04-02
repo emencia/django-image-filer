@@ -198,7 +198,7 @@ class Image(AbstractFile):
 
     date_taken = models.DateTimeField(_('date taken'), null=True, blank=True, editable=False)
 
-    contact = models.ForeignKey(auth_models.User, related_name='contact_of_files', null=True, blank=True, _('contact'))
+    contact = models.ForeignKey(auth_models.User, related_name='contact_of_files', null=True, blank=True, verbose_name=_('contact'))
 
     default_alt_text = models.CharField(_('default alt text'), max_length=255, blank=True, null=True)
     default_caption = models.CharField(_('default caption'), max_length=255, blank=True, null=True)
@@ -472,8 +472,8 @@ class FolderPermission(models.Model):
             if getattr(self, s):
                 perms.append(s)
         perms = ', '.join(perms)
-        return ugettext(u"Folder: '%(name)s'->%(type)s [%(perms)s] [%(usergroup)s]")
-                        % dict(name=name, type=unicode(self.TYPES[self.type][1]), perms=perms, usergroup=usergroup)
+        return ugettext(u"Folder: '%(name)s'->%(type)s [%(perms)s] [%(usergroup)s]") % dict(
+            name=name, type=unicode(self.TYPES[self.type][1]), perms=perms, usergroup=usergroup)
 
     class Meta:
         verbose_name = _('Folder Permission')
@@ -500,8 +500,8 @@ class Clipboard(models.Model):
         pass
 
     def __unicode__(self):
-        return ugettext(u"Clipboard %(clipboard_id)s of %(user)s")
-                        % dict(clipboard_id=self.id, user=self.user)
+        return ugettext(u"Clipboard %(clipboard_id)s of %(user)s") % dict(
+                        clipboard_id=self.id, user=self.user)
 
 class ClipboardItem(models.Model):
     file = models.ForeignKey(Image)

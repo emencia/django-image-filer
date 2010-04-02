@@ -69,7 +69,6 @@ class ImageAdmin(PrimitivePermissionAwareModelAdmin):
             'classes': ('hide',),
         }),
         ('Copyright and Author', {
-            'classes': ('collapse',),
             'fields': ('author', 'must_always_publish_author_credit', 'must_always_publish_copyright')
         }),
         #('Manipulation (only works with cloned images)', {

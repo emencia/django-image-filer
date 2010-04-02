@@ -14,7 +14,7 @@ from django.views.decorators.csrf import csrf_exempt
 from image_filer.models import Folder, Image, Clipboard, ClipboardItem, \
     FolderRoot, UnfiledImages, ImagesWithMissingData, tools
 from image_filer.utils.files import generic_handle_file
-from image_filer.forms import NewFolderForm, ImageExportForm
+from image_filer.forms import NewFolderForm, ImageExportForm, UploadFileForm
 from image_filer import filters
 
 def popup_status(request):
@@ -182,11 +182,6 @@ def make_folder(request, folder_id=None):
             'new_folder_form': new_folder_form,
             'is_popup': request.REQUEST.has_key('_popup') or request.REQUEST.has_key('pop'),
     }, context_instance=RequestContext(request))
-
-class UploadFileForm(forms.ModelForm):
-    class Meta:
-        model=Image
-        #fields = ('file',)
 
 @login_required
 def upload(request):
