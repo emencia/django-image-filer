@@ -1,0 +1,500 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-02 13:51+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: cms_plugins.py:8
+msgid "Image (image filer)"
+msgstr ""
+
+#: cms_plugins.py:49
+msgid "Teaser (image filer)"
+msgstr ""
+
+#: cms_plugins.py:70
+msgid "Image Folder from Filer"
+msgstr ""
+
+#: cms_plugins.py:89
+msgid "Slideshow of image folder"
+msgstr ""
+
+#: fields.py:38
+msgid "image missing!"
+msgstr ""
+
+#: fields.py:47 fields.py:132
+msgid "Lookup"
+msgstr ""
+
+#: admin/__init__.py:296
+msgid "Clipboard item"
+msgstr ""
+
+#: admin/__init__.py:297
+msgid "Clipboards items"
+msgstr ""
+
+#: models/__init__.py:45
+msgid "folder"
+msgstr ""
+
+#: models/__init__.py:47
+msgid "original filename"
+msgstr ""
+
+#: models/__init__.py:48 models/__init__.py:78
+msgid "name"
+msgstr ""
+
+#: models/__init__.py:50 models/__init__.py:80
+msgid "owner"
+msgstr ""
+
+#: models/__init__.py:52 models/__init__.py:82
+msgid "uploaded at"
+msgstr ""
+
+#: models/__init__.py:53 models/__init__.py:85
+msgid "modified at"
+msgstr ""
+
+#: models/__init__.py:77
+msgid "parent"
+msgstr ""
+
+#: models/__init__.py:84
+msgid "created at"
+msgstr ""
+
+#: models/__init__.py:199
+msgid "date taken"
+msgstr ""
+
+#: models/__init__.py:201
+msgid "contact"
+msgstr ""
+
+#: models/__init__.py:203
+msgid "default alt text"
+msgstr ""
+
+#: models/__init__.py:204
+msgid "default caption"
+msgstr ""
+
+#: models/__init__.py:206
+msgid "author"
+msgstr ""
+
+#: models/__init__.py:208
+msgid "must always publish author credit"
+msgstr ""
+
+#: models/__init__.py:209
+msgid "must always publish copyright"
+msgstr ""
+
+#: models/__init__.py:219
+msgid "notes"
+msgstr ""
+
+#: models/__init__.py:221
+msgid "has all mandatory data"
+msgstr ""
+
+#: models/__init__.py:223
+msgid "subject location"
+msgstr ""
+
+#: models/__init__.py:448
+msgid "all items"
+msgstr ""
+
+#: models/__init__.py:449
+msgid "this item only"
+msgstr ""
+
+#: models/__init__.py:450
+msgid "this item and all children"
+msgstr ""
+
+#: models/__init__.py:454
+msgid "type"
+msgstr ""
+
+#: models/__init__.py:455
+msgid "user"
+msgstr ""
+
+#: models/__init__.py:456
+msgid "group"
+msgstr ""
+
+#: models/__init__.py:457
+msgid "everybody"
+msgstr ""
+
+#: models/__init__.py:459
+msgid "can edit"
+msgstr ""
+
+#: models/__init__.py:460
+msgid "can read"
+msgstr ""
+
+#: models/__init__.py:461
+msgid "can add children"
+msgstr ""
+
+#: models/__init__.py:469
+msgid "All Folders"
+msgstr ""
+
+#: models/__init__.py:473
+msgid "Everybody"
+msgstr ""
+
+#: models/__init__.py:476
+#, python-format
+msgid "Group: %s"
+msgstr ""
+
+#: models/__init__.py:478
+#, python-format
+msgid "User: %s"
+msgstr ""
+
+#: models/__init__.py:485
+#, python-format
+msgid "Folder: '%(name)s'->%(type)s [%(perms)s] [%(usergroup)s]"
+msgstr ""
+
+#: models/__init__.py:489
+msgid "Folder Permission"
+msgstr ""
+
+#: models/__init__.py:490
+msgid "Folder Permissions"
+msgstr ""
+
+#: models/__init__.py:494
+msgid "clipboard"
+msgstr ""
+
+#: models/__init__.py:495
+msgid "files"
+msgstr ""
+
+#: models/__init__.py:513
+#, python-format
+msgid "Clipboard %(clipboard_id)s of %(user)s"
+msgstr ""
+
+#: models/__init__.py:558 templates/image_filer/include/search_form.html:24
+msgid "unfiled files"
+msgstr ""
+
+#: models/__init__.py:567 templates/image_filer/include/search_form.html:23
+msgid "files with missing metadata"
+msgstr ""
+
+#: models/__init__.py:594
+msgid "left"
+msgstr ""
+
+#: models/__init__.py:595
+msgid "right"
+msgstr ""
+
+#: models/__init__.py:598
+msgid "alt text"
+msgstr ""
+
+#: models/__init__.py:599
+msgid "caption"
+msgstr ""
+
+#: models/__init__.py:600
+msgid "width"
+msgstr ""
+
+#: models/__init__.py:601
+msgid "height"
+msgstr ""
+
+#: models/__init__.py:603
+msgid "long description"
+msgstr ""
+
+#: models/__init__.py:604 models/__init__.py:645
+msgid "link"
+msgstr ""
+
+#: models/__init__.py:604 models/__init__.py:605
+msgid "if present image will be clickable"
+msgstr ""
+
+#: models/__init__.py:605 models/__init__.py:644
+msgid "page"
+msgstr ""
+
+#: models/__init__.py:606
+msgid "side"
+msgstr ""
+
+#: models/__init__.py:627
+#, python-format
+msgid "Image Publication %s"
+msgstr ""
+
+#: models/__init__.py:642
+msgid "title"
+msgstr ""
+
+#: models/__init__.py:644
+msgid "If present image will be clickable"
+msgstr ""
+
+#: models/__init__.py:645
+msgid "If present image will be clickable."
+msgstr ""
+
+#: models/__init__.py:646
+msgid "description"
+msgstr ""
+
+#: models/__init__.py:652 models/__init__.py:653
+msgid "image filer teaser"
+msgstr ""
+
+#: models/__init__.py:662 models/__init__.py:663
+msgid "folder publication"
+msgstr ""
+
+#: templates/admin/image_filer/app_index.html:10
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr ""
+
+#: templates/admin/image_filer/app_index.html:11
+#, python-format
+msgid "%(name)s"
+msgstr ""
+
+#: templates/admin/image_filer/app_index.html:21
+msgid "Add"
+msgstr ""
+
+#: templates/admin/image_filer/app_index.html:27
+#: templates/image_filer/include/directory_table.html:22
+#: templates/image_filer/include/directory_table.html:36
+msgid "Change"
+msgstr ""
+
+#: templates/admin/image_filer/app_index.html:37
+msgid "You don't have permission to edit anything."
+msgstr ""
+
+#: templates/admin/image_filer/folder/change_form.html:6
+#: templates/admin/image_filer/image/change_form.html:6
+#: templates/image_filer/directory_listing.html:83
+#: templates/image_filer/image_export_form.html:3
+msgid "Home"
+msgstr ""
+
+#: templates/admin/image_filer/folder/change_form.html:6
+#: templates/admin/image_filer/image/change_form.html:7
+#: templates/image_filer/directory_listing.html:83
+#: templates/image_filer/image_export_form.html:3
+msgid "Image Portfolio"
+msgstr ""
+
+#: templates/admin/image_filer/folder/change_form.html:7
+#: templates/admin/image_filer/image/change_form.html:9
+#: templates/image_filer/directory_listing.html:84
+#: templates/image_filer/image_export_form.html:3
+msgid "Root"
+msgstr ""
+
+#: templates/admin/image_filer/folder/change_form.html:18
+#: templates/admin/image_filer/image/change_form.html:24
+msgid "History"
+msgstr ""
+
+#: templates/admin/image_filer/folder/change_form.html:19
+#: templates/admin/image_filer/image/change_form.html:25
+msgid "View on site"
+msgstr ""
+
+#: templates/admin/image_filer/folder/change_form.html:27
+#: templates/image_filer/include/directory_table.html:19
+#: templates/image_filer/include/row_folder.html:6
+msgid "Folder Icon"
+msgstr ""
+
+#: templates/admin/image_filer/image/change_form.html:23
+#: templates/image_filer/image_export_form.html:3
+msgid "Export"
+msgstr ""
+
+#: templates/admin/image_filer/image/change_form.html:37
+msgid "Set focal point"
+msgstr ""
+
+#: templates/admin/image_filer/image/change_form.html:38
+msgid "full size"
+msgstr ""
+
+#: templates/image_filer/directory_listing.html:105
+#: templates/image_filer/include/export_dialog.html:34
+#: templates/image_filer/include/new_folder_dialog.html:35
+msgid "New Folder"
+msgstr ""
+
+#: templates/image_filer/directory_listing.html:119
+#, python-format
+msgid "1 folder"
+msgid_plural "%(counter)s folders"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/image_filer/directory_listing.html:119
+#, python-format
+msgid "1 file"
+msgid_plural "%(counter)s files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/image_filer/folder.html:2
+#, python-format
+msgid "Folder '%(folder_name)s' files:"
+msgstr ""
+
+#: templates/image_filer/folder.html:5
+#, python-format
+msgid "<li>File name: %(filename)s</li>"
+msgstr ""
+
+#: templates/image_filer/image.html:5
+#, python-format
+msgid "(Author: %(image_author)s)"
+msgstr ""
+
+#: templates/image_filer/image_export_form.html:11
+msgid "download image"
+msgstr ""
+
+#: templates/image_filer/include/clipboard.html:5
+#: templates/image_filer/include/directory_table.html:11
+msgid "Clipboard"
+msgstr ""
+
+#: templates/image_filer/include/clipboard.html:12
+msgid "the clipboard is empty"
+msgstr ""
+
+#: templates/image_filer/include/clipboard.html:24
+msgid "&larr; Paste"
+msgstr ""
+
+#: templates/image_filer/include/clipboard.html:30
+msgid "Discard"
+msgstr ""
+
+#: templates/image_filer/include/directory_table.html:10
+#: templates/image_filer/include/tableheader.html:7
+msgid "Name"
+msgstr ""
+
+#: templates/image_filer/include/directory_table.html:17
+msgid "insert"
+msgstr ""
+
+#: templates/image_filer/include/directory_table.html:24
+msgid "Owner:"
+msgstr ""
+
+#: templates/image_filer/include/directory_table.html:24
+msgid "Folders:"
+msgstr ""
+
+#: templates/image_filer/include/directory_table.html:24
+msgid "Images:"
+msgstr ""
+
+#: templates/image_filer/include/directory_table.html:40
+msgid "missing metadata!"
+msgstr ""
+
+#: templates/image_filer/include/directory_table.html:47
+msgid "Cut &rarr;"
+msgstr ""
+
+#: templates/image_filer/include/directory_table.html:53
+msgid "Copy &rarr;"
+msgstr ""
+
+#: templates/image_filer/include/directory_table.html:61
+msgid "there are no files or subfolders"
+msgstr ""
+
+#: templates/image_filer/include/new_folder_form.html:5
+msgid "Add folder"
+msgstr ""
+
+#: templates/image_filer/include/new_folder_form.html:13
+msgid "Name:"
+msgstr ""
+
+#: templates/image_filer/include/new_folder_form.html:19
+msgid "Save"
+msgstr ""
+
+#: templates/image_filer/include/row_image.html:17
+msgid "move to clipboard"
+msgstr ""
+
+#: templates/image_filer/include/search_form.html:8
+msgid "Search"
+msgstr ""
+
+#: templates/image_filer/include/search_form.html:11
+msgid "Go"
+msgstr ""
+
+#: templates/image_filer/include/search_form.html:12
+msgid "limit search to current folder"
+msgstr ""
+
+#: templates/image_filer/include/search_form.html:15
+#, python-format
+msgid "(found 1 folder and"
+msgid_plural "(found %(counter)s folders and"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/image_filer/include/search_form.html:16
+#, python-format
+msgid "1 image)"
+msgid_plural "%(counter)s images)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/image_filer/include/search_form.html:17
+msgid "forget search"
+msgstr ""
