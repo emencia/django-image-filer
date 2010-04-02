@@ -1,14 +1,22 @@
-from django.forms.models import ModelForm
-from image_filer.models import ImagePublication
 from django import forms
-from django.contrib.admin.widgets import ForeignKeyRawIdWidget
+from image_filer.models import Folder
 
-# Not Used
-class ImagePublicationForm(ModelForm):
-    image = ForeignKeyRawIdWidget('Image')
+class NewFolderForm(forms.ModelForm):
     class Meta:
-        model = ImagePublication
-        exclude = ('page', 'position', 'placeholder', 'language', 'plugin_type')
-    def __init__(self, *args, **kwargs):
-        return super(ImagePublicationForm, self).__init__(*args, **kwargs)
-        #self.fields['image'].widget = ForeignKeyRawIdWidget('Image')
+        model = Folder
+        fields = ('name', )
+
+
+class ImageExportForm(forms.Form):
+    FORMAT_CHOICES = (
+        ('jpg', 'jpg'),
+        ('png', 'png'),
+        ('gif', 'gif'),
+    )
+    format = forms.ChoiceField(choices=FORMAT_CHOICES)
+
+    crop = forms.BooleanField(required=False)
+    upscale = forms.BooleanField(required=False)
+
+    width = forms.IntegerField()
+    height = forms.IntegerField()

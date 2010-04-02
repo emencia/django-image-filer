@@ -7,24 +7,15 @@ from django.contrib.sessions.models import Session
 from django.conf import settings
 from django.db.models import Q
 from django.core.exceptions import PermissionDenied
-
-from models import Folder, Image, Clipboard, ClipboardItem
-from models import tools
-from models import FolderRoot, UnfiledImages, ImagesWithMissingData
 from django.contrib.auth.models import User
-
-from django import forms
-
 from django.contrib import admin
-from image_filer.utils.files import generic_handle_file
-
 from django.views.decorators.csrf import csrf_exempt
 
-
-class NewFolderForm(forms.ModelForm):
-    class Meta:
-        model = Folder
-        fields = ('name', )
+from image_filer.models import Folder, Image, Clipboard, ClipboardItem, \
+    FolderRoot, UnfiledImages, ImagesWithMissingData, tools
+from image_filer.utils.files import generic_handle_file
+from image_filer.forms import NewFolderForm, ImageExportForm
+from image_filer import filters
 
 def popup_status(request):
     return request.REQUEST.has_key('_popup') or request.REQUEST.has_key('pop')
@@ -144,7 +135,7 @@ def directory_listing(request, folder_id=None, viewtype=None):
 @login_required
 def edit_folder(request, folder_id):
     # TODO: implement edit_folder view
-    folder=None
+    folder = None
     return render_to_response('image_filer/folder_edit.html', {
             'folder': folder,
             'is_popup': request.REQUEST.has_key('_popup') or request.REQUEST.has_key('pop'),
@@ -153,7 +144,7 @@ def edit_folder(request, folder_id):
 @login_required
 def edit_image(request, folder_id):
     # TODO: implement edit_image view
-    folder=None
+    folder = None
     return render_to_response('image_filer/image_edit.html', {
             'folder': folder,
             'is_popup': request.REQUEST.has_key('_popup') or request.REQUEST.has_key('pop'),
@@ -232,7 +223,10 @@ def ajax_upload(request, folder_id=None):
             except:
                 iext = ''
             if iext in ['.jpg','.jpeg','.png','.gif']:
-                imageform = UploadFileForm({'original_filename':iname,'owner': request.user.pk}, {'file':ifile})
+                imageform = UploadFileForm({
+                    'original_filename': iname,
+                    'owner': request.user.pk
+                }, {'file': ifile})
                 if imageform.is_valid():
                     try:
                         image = imageform.save(commit=False)
@@ -310,23 +304,6 @@ def clone_files_from_clipboard_to_folder(request):
         tools.clone_files_from_clipboard_to_folder(clipboard, folder)
     return HttpResponseRedirect('%s%s' % (request.POST.get('redirect_to', ''), popup_param(request)))
 
-class ImageExportForm(forms.Form):
-    FORMAT_CHOICES = (
-        ('jpg', 'jpg'),
-        ('png', 'png'),
-        ('gif', 'gif'),
-        #('tif', 'tif'),
-    )
-    format = forms.ChoiceField(choices=FORMAT_CHOICES)
-
-    crop = forms.BooleanField(required=False)
-    upscale = forms.BooleanField(required=False)
-
-    width = forms.IntegerField()
-    height = forms.IntegerField()
-
-
-import filters
 @login_required
 def export_image(request, image_id):
     image = Image.objects.get(id=image_id)
@@ -340,9 +317,6 @@ def export_image(request, image_id):
             if format=='png':
                 mimetype='image/jpg'
                 pil_format = 'PNG'
-            #elif format=='tif':
-            #    mimetype='image/tiff'
-            #    pil_format = 'TIFF'
             elif format=='gif':
                 mimetype='image/gif'
                 pil_format = 'GIF'

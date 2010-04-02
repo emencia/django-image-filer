@@ -151,7 +151,9 @@ class ReflectionFilter(BaseFilter):
     
         # return the image complete with reflection effect
         return composite
+
 library.register_builtin_filter(ReflectionFilter)
+
 """
 Create image filter objects for all the built in PIL filters
 """

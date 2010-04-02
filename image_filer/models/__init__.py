@@ -6,7 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.core.files.storage import FileSystemStorage
 from django.core.files.base import File, ContentFile
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 from datetime import datetime, date
 from image_filer.utils import EXIF
 from sorl.thumbnail import fields as thumbnail_fields
@@ -42,23 +42,21 @@ class AbstractFile(models.Model):
         file: return a file object
     """
     file_type = 'unknown'
-    folder = models.ForeignKey("Folder", related_name='%(class)s_files', null=True, blank=True)
-    
-    original_filename = models.CharField(max_length=255, blank=True, null=True)
-    name = models.CharField(max_length=255, null=True, blank=True)
-    
-    owner = models.ForeignKey(auth_models.User, related_name='owned_%(class)ss', null=True, blank=True)
-    
-    uploaded_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
-    
+    folder = models.ForeignKey("Folder", related_name='%(class)s_files', null=True, blank=True, verbose_name=_('folder'))
+
+    original_filename = models.CharField(_('original filename'), max_length=255, blank=True, null=True)
+    name = models.CharField(_('name'), max_length=255, null=True, blank=True)
+
+    owner = models.ForeignKey(auth_models.User, related_name='owned_%(class)ss', null=True, blank=True, verbose_name=_("owner"))
+
+    uploaded_at = models.DateTimeField(_("uploaded at"), auto_now_add=True)
+    modified_at = models.DateTimeField(_("modified at"), auto_now=True)
+
     def __unicode__(self):
         if self.name in ('', None):
-            text = u"%s" % (self.original_filename,)
-        else:
-            text = u"%s" % (self.name,)
-        return text
-    
+            return self.original_filename
+        return self.name
+
     class Meta:
         abstract=True
 
@@ -67,7 +65,7 @@ class Folder(models.Model):
     Represents a Folder that things (files) can be put into. Folders are *NOT*
     mirrored in the Filesystem and can have any unicode chars as their name.
     Other models may attach to a folder with a ForeignKey. If the related name
-    ends with "_files" they will automatically be listed in the 
+    ends with "_files" they will automatically be listed in the
     folder.files list along with all the other models that link to the folder
     in this way. Make sure the linked models obey the AbstractFile interface
     (Duck Type).
@@ -75,20 +73,19 @@ class Folder(models.Model):
     file_type = 'Folder'
     is_root = False
     can_have_subfolders = True
-    
-    parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
-    name = models.CharField(max_length=255)
-    
-    owner = models.ForeignKey(auth_models.User, related_name='owned_folders', null=True, blank=True)
-    
-    uploaded_at = models.DateTimeField(auto_now_add=True)
-    
-    created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
-    
+
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='children', verbose_name=_('parent'))
+    name = models.CharField(_('name'), max_length=255)
+
+    owner = models.ForeignKey(auth_models.User, related_name='owned_folders', null=True, blank=True, verbose_name=_('owner'))
+
+    uploaded_at = models.DateTimeField(_('uploaded at'), auto_now_add=True)
+
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
+    modified_at = models.DateTimeField(_('modified at'), auto_now=True)
+
     objects = FolderManager()
-    
-    
+
     def _get_file_relationships(self):
         # TODO: make this a "multi iterator" that can iterate over multiple
         #         querysets without having to load all objects
@@ -98,7 +95,7 @@ class Folder(models.Model):
                 # TODO: also check for fieldtype
                 rel.append(getattr(self, attr))
         return rel
-    
+
     @property
     def file_count(self):
         c = 0
@@ -123,7 +120,7 @@ class Folder(models.Model):
             for file in files.all():
                 result.append(file)
         return result
-    
+
     def has_edit_permission(self, request):
         return self.has_generic_permission(request, 'edit')
 
@@ -159,7 +156,7 @@ class Folder(models.Model):
                 else:
                     setattr(self, att_name, False)
             return getattr(self, att_name)
-    
+
     def __unicode__(self):
         return u"%s" % (self.name,)
 
@@ -196,35 +193,35 @@ class Image(AbstractFile):
                     #    'admin_tiny_icon': {'size': (32,32), 'options': ['crop','upscale']},
                     #},
                     null=True, blank=True,max_length=255)
-    _height_field = models.IntegerField(null=True, blank=True) 
+    _height_field = models.IntegerField(null=True, blank=True)
     _width_field = models.IntegerField(null=True, blank=True)
-    
+
     date_taken = models.DateTimeField(_('date taken'), null=True, blank=True, editable=False)
-    
-    contact = models.ForeignKey(auth_models.User, related_name='contact_of_files', null=True, blank=True)
-    
-    default_alt_text = models.CharField(max_length=255, blank=True, null=True)
-    default_caption = models.CharField(max_length=255, blank=True, null=True)
-    
-    author = models.CharField(max_length=255, null=True, blank=True)
-    
-    must_always_publish_author_credit = models.BooleanField(default=False)
-    must_always_publish_copyright = models.BooleanField(default=False)
-    
-    # TODO: Factor out customer specific fields... maybe a m2m?
-    can_use_for_web = models.BooleanField(default=True)
-    can_use_for_print = models.BooleanField(default=True)
-    can_use_for_teaching = models.BooleanField(default=True)
-    can_use_for_research = models.BooleanField(default=True)
-    can_use_for_private_use = models.BooleanField(default=True)
-    
-    usage_restriction_notes = models.TextField(null=True, blank=True)
-    notes = models.TextField(null=True, blank=True)
-    
-    has_all_mandatory_data = models.BooleanField(default=False, editable=False)
-    
-    subject_location = models.CharField(max_length=64, null=True, blank=True, default=None)
-    
+
+    contact = models.ForeignKey(auth_models.User, related_name='contact_of_files', null=True, blank=True, _('contact'))
+
+    default_alt_text = models.CharField(_('default alt text'), max_length=255, blank=True, null=True)
+    default_caption = models.CharField(_('default caption'), max_length=255, blank=True, null=True)
+
+    author = models.CharField(max_length=255, null=True, blank=True, verbose_name=_('author'))
+
+    must_always_publish_author_credit = models.BooleanField(_('must always publish author credit'), default=False)
+    must_always_publish_copyright = models.BooleanField(_('must always publish copyright'), default=False)
+
+    # # TODO: Factor out customer specific fields... maybe a m2m?
+    # can_use_for_web = models.BooleanField(default=True)
+    # can_use_for_print = models.BooleanField(default=True)
+    # can_use_for_teaching = models.BooleanField(default=True)
+    # can_use_for_research = models.BooleanField(default=True)
+    # can_use_for_private_use = models.BooleanField(default=True)
+    # 
+    # usage_restriction_notes = models.TextField(null=True, blank=True, )
+    notes = models.TextField(_('notes'), null=True, blank=True)
+
+    has_all_mandatory_data = models.BooleanField(_('has all mandatory data'), default=False, editable=False)
+
+    subject_location = models.CharField(_('subject location'), max_length=64, null=True, blank=True, default=None)
+
     def _check_validity(self):
         if not self.name or not self.contact:
             return False
@@ -258,7 +255,7 @@ class Image(AbstractFile):
                 parts = self.subject_location.split(',')
                 pos_x = int(parts[0])
                 pos_y = int(parts[1])
-                                                  
+
                 sl = (int(pos_x), int(pos_y) )
                 exif_sl = self.exif.get('SubjectLocation', None)
                 if self.file and not sl == exif_sl:
@@ -316,7 +313,7 @@ class Image(AbstractFile):
 
     @property
     def label(self):
-        if self.name in ['',None]:
+        if self.name in ['', None]:
             return self.original_filename or 'unnamed file'
         else:
             return self.name
@@ -339,7 +336,7 @@ class Image(AbstractFile):
     @property
     def thumbnails(self):
         # we build an extra dict here mainly
-        # to prevent the default errors to 
+        # to prevent the default errors to
         # get thrown and to add a default missing
         # image (not yet)
         if not hasattr(self, '_thumbnails'):
@@ -365,7 +362,9 @@ class Image(AbstractFile):
 
     @property
     def rel_image_url(self):
-        'return the image url relative to MEDIA_URL'
+        """
+        return the image url relative to MEDIA_URL
+        """
         try:
             rel_url = u"%s" % self.file.url
             if rel_url.startswith('/media/'):
@@ -402,8 +401,8 @@ class FolderPermissionManager(models.Manager):
         allow_list = []
         deny_list = []
         group_ids = user.groups.all().values_list('id', flat=True)
-        q = Q(user=user)|Q(group__in=group_ids)|Q(everybody=True)
-        perms = self.filter(q).order_by('folder__tree_id', 'folder__level', 
+        q = Q(user=user) | Q(group__in=group_ids) | Q(everybody=True)
+        perms = self.filter(q).order_by('folder__tree_id', 'folder__level',
                                         'folder__lft')
         for perm in perms:
             if perm.folder:
@@ -444,51 +443,47 @@ class FolderPermission(models.Model):
     ALL = 0
     THIS = 1
     CHILDREN = 2
-    
+
     TYPES = (
         (ALL, _('all items') ),
         (THIS, _('this item only') ),
         (CHILDREN, _('this item and all children') ),
     )
-    '''
-    content_type = models.ForeignKey(ContentType, null=True, blank=True)
-    object_id = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('content_type', 'object_id')
-    '''
     folder = models.ForeignKey(Folder, null=True, blank=True)
-    
+
     type = models.SmallIntegerField(_('type'), choices=TYPES, default=0)
     user = models.ForeignKey(auth_models.User, verbose_name=_("user"), blank=True, null=True)
     group = models.ForeignKey(auth_models.Group, verbose_name=_("group"), blank=True, null=True)
     everybody = models.BooleanField(_("everybody"), default=False)
-    
+
     can_edit = models.BooleanField(_("can edit"), default=True)
     can_read = models.BooleanField(_("can read"), default=True)
     can_add_children = models.BooleanField(_("can add children"), default=True)
-    
+
     objects = FolderPermissionManager()
-    
+
     def __unicode__(self):
         if self.folder:
             name = u'%s' % self.folder
         else:
-            name = u'All Folders'
-        
+            name = ugettext(u'All Folders')
+
         ug = []
         if self.everybody:
-            user = 'Everybody'
+            user = ugettext(u'Everybody')
         else:
             if self.group:
-                ug.append(u"Group: %s" % self.group)
+                ug.append(ugettext(u"Group: %s") % self.group)
             if self.user:
-                ug.append(u"User: %s" % self.user)
+                ug.append(ugettext(u"User: %s") % self.user)
         usergroup = " ".join(ug)
         perms = []
         for s in ['can_edit', 'can_read', 'can_add_children']:
             if getattr(self, s):
                 perms.append(s)
         perms = ', '.join(perms)
-        return u"Folder: '%s'->%s [%s] [%s]" % (name, unicode(self.TYPES[self.type][1]), perms, usergroup)
+        return ugettext(u"Folder: '%(name)s'->%(type)s [%(perms)s] [%(usergroup)s]")
+                        % dict(name=name, type=unicode(self.TYPES[self.type][1]), perms=perms, usergroup=usergroup)
 
     class Meta:
         verbose_name = _('Folder Permission')
@@ -496,26 +491,27 @@ class FolderPermission(models.Model):
 
 
 class Clipboard(models.Model):
-    user = models.ForeignKey(auth_models.User, related_name="clipboards")
-    files = models.ManyToManyField(Image, related_name="clipboards", through='ClipboardItem')
-    
+    user = models.ForeignKey(auth_models.User, related_name="clipboards", verbose_name=_('clipboard'))
+    files = models.ManyToManyField(Image, related_name="clipboards", through='ClipboardItem', verbose_name=_('files'))
+
     def append_file(self, file, is_copy=False):
         newitem = ClipboardItem(file=file, clipboard=self, is_copy=is_copy)
         newitem.save()
-    
+
     def empty(self):
         for item in self.bucket_items.all():
             item.delete()
     empty.alters_data = True
-    
+
     def clone(self, to_folder=None):
         pass
 
     def set_image_manipulation_profile(self):
         pass
-    
+
     def __unicode__(self):
-        return u"Clipboard %s of %s" % (self.id, self.user)
+        return ugettext(u"Clipboard %(clipboard_id)s of %(user)s")
+                        % dict(clipboard_id=self.id, user=self.user)
 
 class ClipboardItem(models.Model):
     file = models.ForeignKey(Image)
@@ -599,21 +595,16 @@ if 'cms' in settings.INSTALLED_APPS:
             (RIGHT, _("right")),
         )
         image = ImageFilerModelImageField()
-        alt_text = models.CharField(null=True, blank=True, max_length=255)
-        caption = models.CharField(null=True, blank=True, max_length=255)
-        width = models.PositiveIntegerField(null=True, blank=True)
-        height = models.PositiveIntegerField(null=True, blank=True)
-        
-        longdesc = models.TextField(null=True, blank=True)
-        free_link = models.CharField(_("link"), max_length=255, blank=True, null=True, help_text=_("if present image will be clickable"))
+        alt_text = models.CharField(_('alt text'), null=True, blank=True, max_length=255)
+        caption = models.CharField(_('caption'), null=True, blank=True, max_length=255)
+        width = models.PositiveIntegerField(_('width'), null=True, blank=True)
+        height = models.PositiveIntegerField(_('height'), null=True, blank=True)
+
+        longdesc = models.TextField(_('long description'), null=True, blank=True)
+        free_link = models.CharField(_('link'), max_length=255, blank=True, null=True, help_text=_("if present image will be clickable"))
         page_link = models.ForeignKey(Page, verbose_name=_("page"), null=True, blank=True, help_text=_("if present image will be clickable"))
         float = models.CharField(_("side"), max_length=10, blank=True, null=True, choices=FLOAT_CHOICES)
-        
-        #crop_ax = models.PositiveIntegerField(null=True, blank=True)
-        #crop_ay = models.PositiveIntegerField(null=True, blank=True)
-        #crop_bx = models.PositiveIntegerField(null=True, blank=True)
-        #crop_by = models.PositiveIntegerField(null=True, blank=True)
-        
+
         show_author = models.BooleanField(default=False)
         show_copyright = models.BooleanField(default=False)
 
@@ -623,25 +614,26 @@ if 'cms' in settings.INSTALLED_APPS:
                 self.width = self.image.width
                 self.height = self.image.height
             super(ImagePublication, self).save(*args, **kwargs)
-        
+
         def scaled_image_url(self):
             h = self.height or 128
             w = self.width or 128
-            tn = unicode(DjangoThumbnail(self.image.file, (w,h), opts=['crop','upscale'] ))
-            return tn
+            return unicode(DjangoThumbnail(self.image.file, (w, h), opts=['crop','upscale']))
 
         def __unicode__(self):
             if self.image:
                 return self.image.label
             else:
-                return u"Image Publication %s" % self.caption
+                return ugettext(u"Image Publication %s") % self.caption
             return ''
 
         @property
-        def alt(self): return self.alt_text
+        def alt(self):
+            return self.alt_text
 
         @property
-        def url(self): return self.free_link
+        def url(self):
+            return self.free_link
 
     class ImageFilerTeaser(CMSPlugin):
         """
@@ -652,18 +644,27 @@ if 'cms' in settings.INSTALLED_APPS:
         page_link = models.ForeignKey(Page, verbose_name=_("page"), help_text=_("If present image will be clickable"), blank=True, null=True)
         url = models.CharField(_("link"), max_length=255, blank=True, null=True, help_text=_("If present image will be clickable."))
         description = models.TextField(_("description"), blank=True, null=True)
-        
+
         def __unicode__(self):
             return self.title
-    
+
+        class Meta:
+            verbose_name = _("image filer teaser")
+            verbose_name_plural = _("image filer teaser")
+
     class FolderPublication(CMSPlugin):
         folder = ImageFilerModelFolderField()
 
         class Meta:
             db_table = 'cmsplugin_imagefolder'
- 
-    if 'reversion' in settings.INSTALLED_APPS:       
-        import reversion 
+
+        class Meta:
+            verbose_name = _("folder publication")
+            verbose_name_plural = _("folder publication")
+
+
+    if 'reversion' in settings.INSTALLED_APPS:
+        import reversion
         from cms.utils.helpers import reversion_register
         reversion_register(ImagePublication, follow=["cmsplugin_ptr"])
         reversion_register(FolderPublication, follow=["cmsplugin_ptr"])

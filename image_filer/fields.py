@@ -32,23 +32,23 @@ class ImageFilerImageWidget(ForeignKeyRawIdWidget):
         output = []
         if obj:
             try:
-                output.append(u'<img id="%s" src="%s" alt="%s" /> ' % (css_id_thumbnail_img, obj.thumbnails['admin_tiny_icon'], obj.label) )
+                output.append(u'<img id="%s" src="%s" alt="%s" /> ' % (css_id_thumbnail_img, obj.thumbnails['admin_tiny_icon'], obj.label))
             except ThumbnailException:
                 # this means that the image is missing on the filesystem
-                output.append(u'<img id="%s" src="%s" alt="%s" /> ' % (css_id_thumbnail_img, '', 'image missing!') )
-            output.append(u'&nbsp;<strong id="%s">%s</strong>' % (css_id_description_txt, obj) )
+                output.append(u'<img id="%s" src="%s" alt="%s" /> ' % (css_id_thumbnail_img, '', _('image missing!')))
+            output.append(u'&nbsp;<strong id="%s">%s</strong>' % (css_id_description_txt, obj))
         else:
             output.append(u'<img id="%s" src="" class="quiet" alt="no image selected">' % css_id_thumbnail_img)
-            output.append(u'&nbsp;<strong id="%s">%s</strong>' % (css_id_description_txt, '') )
+            output.append(u'&nbsp;<strong id="%s">%s</strong>' % (css_id_description_txt, ''))
         # TODO: "id_" is hard-coded here. This should instead use the correct
         # API to determine the ID dynamically.
         output.append('<a href="%s%s" class="related-lookup" id="lookup_id_%s" onclick="return showRelatedObjectLookupPopup(this);"> ' % \
             (related_url, url, name))
         output.append('<img src="%simg/admin/selector-search.gif" width="16" height="16" alt="%s" /></a>' % (settings.ADMIN_MEDIA_PREFIX, _('Lookup')))
-        output.append('''<a href="" class="deletelink" onclick="return removeImageLink('%s');">&nbsp;</a>''' % (css_id,) )
+        output.append('''<a href="" class="deletelink" onclick="return removeImageLink('%s');">&nbsp;</a>''' % (css_id,))
         output.append('</br>')
         super_attrs = attrs.copy()
-        output.append( super(ForeignKeyRawIdWidget, self).render(name, value, super_attrs) )
+        output.append( super(ForeignKeyRawIdWidget, self).render(name, value, super_attrs))
         return mark_safe(u''.join(output))
     def label_for_value(self, value):
         obj = self.obj_for_value(value)
@@ -60,13 +60,13 @@ class ImageFilerImageWidget(ForeignKeyRawIdWidget):
         except:
             obj = None
         return obj
-    
+
     class Media:
         js = (context_processors.media(None)['IMAGE_FILER_MEDIA_URL']+'js/image_widget_thumbnail.js',
               context_processors.media(None)['IMAGE_FILER_MEDIA_URL']+'js/popup_handling.js',)
 
 class ImageFilerImageFormField(forms.ModelChoiceField):
-    widget = ImageFilerImageWidget 
+    widget = ImageFilerImageWidget
     def __init__(self, rel, queryset, to_field_name, *args, **kwargs):
         self.rel = rel
         self.queryset = queryset
@@ -122,7 +122,7 @@ class ImageFilerFolderWidget(ForeignKeyRawIdWidget):
             attrs['class'] = 'vForeignKeyRawIdAdminField' # The JavaScript looks for this hook.
         output = []
         if obj:
-            output.append(u'Folder: <span id="%s">%s</span>' % (css_id_name,obj.name))
+            output.append(u'Folder: <span id="%s">%s</span>' % (css_id_name, obj.name))
         else:
             output.append(u'Folder: <span id="%s">none selected</span>' % css_id_name)
         # TODO: "id_" is hard-coded here. This should instead use the correct
@@ -132,11 +132,13 @@ class ImageFilerFolderWidget(ForeignKeyRawIdWidget):
         output.append('<img src="%simg/admin/selector-search.gif" width="16" height="16" alt="%s" /></a>' % (settings.ADMIN_MEDIA_PREFIX, _('Lookup')))
         output.append('</br>')
         super_attrs = attrs.copy()
-        output.append( super(ForeignKeyRawIdWidget, self).render(name, value, super_attrs) )
+        output.append( super(ForeignKeyRawIdWidget, self).render(name, value, super_attrs))
         return mark_safe(u''.join(output))
+
     def label_for_value(self, value):
         obj = self.obj_for_value(value)
         return '&nbsp;<strong>%s</strong>' % truncate_words(obj, 14)
+
     def obj_for_value(self, value):
         try:
             key = self.rel.get_related_field().name
@@ -144,12 +146,12 @@ class ImageFilerFolderWidget(ForeignKeyRawIdWidget):
         except:
             obj = None
         return obj
-    
+
     class Media:
         js = (context_processors.media(None)['IMAGE_FILER_MEDIA_URL']+'js/popup_handling.js',)
 
 class ImageFilerFolderFormField(forms.ModelChoiceField):
-    widget = ImageFilerFolderWidget 
+    widget = ImageFilerFolderWidget
 
     def __init__(self, rel, queryset, to_field_name, *args, **kwargs):
         self.rel = rel

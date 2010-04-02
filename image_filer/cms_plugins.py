@@ -9,7 +9,7 @@ class ImagePlugin(CMSPluginBase):
     render_template = "cms/plugins/image.html"
     text_enabled = True
     raw_id_fields = ('image',)
-    
+
     def render(self, context, instance, placeholder):
         if not instance.width:
             try:
@@ -48,7 +48,7 @@ class ImageFilerTeaserPlugin(CMSPluginBase):
     model = ImageFilerTeaser
     name = _("Teaser (image filer)")
     render_template = "cms/plugins/teaser.html"
-    
+
     def render(self, context, instance, placeholder):
         if instance.url:
             link = instance.url
@@ -57,9 +57,9 @@ class ImageFilerTeaserPlugin(CMSPluginBase):
         else:
             link = ""
         context.update({
-            'object':instance, 
-            'placeholder':placeholder,
-            'link':link
+            'object': instance,
+            'placeholder': placeholder,
+            'link': link,
         })
         return context
 
@@ -75,8 +75,8 @@ class ImageFolderPlugin(CMSPluginBase):
 
     def render(self, context, instance, placeholder):
         context.dicts.append({
-            'image_folder_publication':instance,
-            'placeholder':placeholder
+            'image_folder_publication': instance,
+            'placeholder': placeholder,
         })
         return context
 
