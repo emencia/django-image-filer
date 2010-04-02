@@ -52,13 +52,16 @@ class AbstractFile(models.Model):
     uploaded_at = models.DateTimeField(_("uploaded at"), auto_now_add=True)
     modified_at = models.DateTimeField(_("modified at"), auto_now=True)
 
+    order = models.PositiveIntegerField(_("order"), blank=True, null=True)
+
     def __unicode__(self):
         if self.name in ('', None):
             return self.original_filename
         return self.name
 
     class Meta:
-        abstract=True
+        abstract = True
+        ordering = ('order',)
 
 class Folder(models.Model):
     """
@@ -158,12 +161,14 @@ class Folder(models.Model):
             return getattr(self, att_name)
 
     def __unicode__(self):
-        return u"%s" % (self.name,)
+        return self.name
 
     class Meta:
         unique_together = (('parent','name'),)
         ordering = ('name',)
-        permissions = (("can_use_directory_listing", "Can use directory listing"),)
+        permissions = (
+            ("can_use_directory_listing", _("Can use directory listing")),
+        )
 
 # MPTT registration
 try:

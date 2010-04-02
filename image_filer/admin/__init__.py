@@ -62,7 +62,7 @@ class ImageAdmin(PrimitivePermissionAwareModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'contact', 'owner',)
+            'fields': ('name', 'contact', 'owner', 'order')
         }),
         (None, {
             'fields': ('subject_location',),
@@ -101,7 +101,7 @@ class ImageAdmin(PrimitivePermissionAwareModelAdmin):
         response = super(ImageAdmin, self).response_change(request, obj)
         if response['Location']:
             # it was a successful save
-            if r['Location'] in ['../']:
+            if response['Location'] in ['../']:
                 # this means it was a save: redirect to the directory view
                 if obj.folder:
                     url = reverse('admin:image_filer-directory_listing',

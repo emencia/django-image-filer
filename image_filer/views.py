@@ -55,12 +55,23 @@ def directory_listing(request, folder_id=None, viewtype=None):
     # search
     def filter_folder(qs, terms=[]):
         for term in terms:
-            qs = qs.filter(Q(name__icontains=term) | Q(owner__username__icontains=term) | Q(owner__first_name__icontains=term) | Q(owner__last_name__icontains=term)  )
+            qs = qs.filter(
+                Q(name__icontains=term) | \
+                Q(owner__username__icontains=term) | \
+                Q(owner__first_name__icontains=term) | \
+                Q(owner__last_name__icontains=term))
         return qs
+
     def filter_image(qs, terms=[]):
         for term in terms:
-            qs = qs.filter( Q(name__icontains=term) | Q(original_filename__icontains=term ) | Q(owner__username__icontains=term) | Q(owner__first_name__icontains=term) | Q(owner__last_name__icontains=term))
+            qs = qs.filter(
+                Q(name__icontains=term) | \
+                Q(original_filename__icontains=term ) | \
+                Q(owner__username__icontains=term) | \
+                Q(owner__first_name__icontains=term) | \
+                Q(owner__last_name__icontains=term))
         return qs
+
     q = request.GET.get('q', None)
     if q:
         search_terms = q.split(" ")
@@ -86,7 +97,7 @@ def directory_listing(request, folder_id=None, viewtype=None):
         show_result_count = False
 
     folder_qs = folder_qs.order_by('name')
-    image_qs = image_qs.order_by('name')
+    image_qs = image_qs.order_by('-order', 'name')
 
     folder_children = []
     folder_files = []
@@ -117,20 +128,20 @@ def directory_listing(request, folder_id=None, viewtype=None):
     except:
         permissions = {}
     return render_to_response('image_filer/directory_listing.html', {
-            'folder':folder,
-            'folder_children':folder_children,
-            'folder_files':folder_files,
-            'permissions': permissions,
-            'permstest': _userperms(folder, request),
-            'current_url': request.path,
-            'title': u'Directory listing for %s' % folder.name,
-            'search_string': ' '.join(search_terms),
-            'show_result_count': show_result_count,
-            'limit_search_to_folder': limit_search_to_folder,
-            'is_popup': popup_status(request),
-            'select_folder': selectfolder_status(request),
-            'root_path': "/%s" % admin.site.root_path, # needed in the admin/base.html template for logout links and stuff
-        }, context_instance=RequestContext(request))
+        'folder':folder,
+        'folder_children':folder_children,
+        'folder_files':folder_files,
+        'permissions': permissions,
+        'permstest': _userperms(folder, request),
+        'current_url': request.path,
+        'title': u'Directory listing for %s' % folder.name,
+        'search_string': ' '.join(search_terms),
+        'show_result_count': show_result_count,
+        'limit_search_to_folder': limit_search_to_folder,
+        'is_popup': popup_status(request),
+        'select_folder': selectfolder_status(request),
+        'root_path': "/%s" % admin.site.root_path, # needed in the admin/base.html template for logout links and stuff
+    }, context_instance=RequestContext(request))
 
 @login_required
 def edit_folder(request, folder_id):
