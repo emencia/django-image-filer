@@ -3,14 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-02 13:51+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2010-04-02 14:17+0100\n"
+"Last-Translator: \n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,15 +18,15 @@ msgstr ""
 
 #: cms_plugins.py:8
 msgid "Image (image filer)"
-msgstr ""
+msgstr "Bild (einzeln)"
 
 #: cms_plugins.py:49
 msgid "Teaser (image filer)"
-msgstr ""
+msgstr "Hauptartikelbild"
 
 #: cms_plugins.py:70
 msgid "Image Folder from Filer"
-msgstr ""
+msgstr "Bildstrecke (Ordner)"
 
 #: cms_plugins.py:89
 msgid "Slideshow of image folder"
@@ -35,43 +34,48 @@ msgstr ""
 
 #: fields.py:38
 msgid "image missing!"
-msgstr ""
+msgstr "fehlendes Bild!"
 
-#: fields.py:47 fields.py:132
+#: fields.py:47
+#: fields.py:132
 msgid "Lookup"
 msgstr ""
 
 #: admin/__init__.py:296
 msgid "Clipboard item"
-msgstr ""
+msgstr "Zwischenablage Item"
 
 #: admin/__init__.py:297
 msgid "Clipboards items"
-msgstr ""
+msgstr "Zwischenablage Items"
 
 #: models/__init__.py:45
 msgid "folder"
-msgstr ""
+msgstr "Ordner"
 
 #: models/__init__.py:47
 msgid "original filename"
-msgstr ""
+msgstr "Original Dateiname"
 
-#: models/__init__.py:48 models/__init__.py:78
+#: models/__init__.py:48
+#: models/__init__.py:78
 msgid "name"
-msgstr ""
+msgstr "Name (klüger übersetzen)"
 
-#: models/__init__.py:50 models/__init__.py:80
+#: models/__init__.py:50
+#: models/__init__.py:80
 msgid "owner"
-msgstr ""
+msgstr "Eigentümer (klüger übersetzen)"
 
-#: models/__init__.py:52 models/__init__.py:82
+#: models/__init__.py:52
+#: models/__init__.py:82
 msgid "uploaded at"
-msgstr ""
+msgstr "Hochgeladen am"
 
-#: models/__init__.py:53 models/__init__.py:85
+#: models/__init__.py:53
+#: models/__init__.py:85
 msgid "modified at"
-msgstr ""
+msgstr "verändert am"
 
 #: models/__init__.py:77
 msgid "parent"
@@ -79,7 +83,7 @@ msgstr ""
 
 #: models/__init__.py:84
 msgid "created at"
-msgstr ""
+msgstr "Erstellt am"
 
 #: models/__init__.py:199
 msgid "date taken"
@@ -87,19 +91,19 @@ msgstr ""
 
 #: models/__init__.py:201
 msgid "contact"
-msgstr ""
+msgstr "Kontakt"
 
 #: models/__init__.py:203
 msgid "default alt text"
-msgstr ""
+msgstr "Standard Alt-Text"
 
 #: models/__init__.py:204
 msgid "default caption"
-msgstr ""
+msgstr "Standard Bildbeschreibung"
 
 #: models/__init__.py:206
 msgid "author"
-msgstr ""
+msgstr "Fotograf"
 
 #: models/__init__.py:208
 msgid "must always publish author credit"
@@ -111,7 +115,7 @@ msgstr ""
 
 #: models/__init__.py:219
 msgid "notes"
-msgstr ""
+msgstr "Bemerkungen (nicht öffentlich)"
 
 #: models/__init__.py:221
 msgid "has all mandatory data"
@@ -119,15 +123,15 @@ msgstr ""
 
 #: models/__init__.py:223
 msgid "subject location"
-msgstr ""
+msgstr "Ort der Aufnahme"
 
 #: models/__init__.py:448
 msgid "all items"
-msgstr ""
+msgstr "Alle items (klüger übersetzen)"
 
 #: models/__init__.py:449
 msgid "this item only"
-msgstr ""
+msgstr "Nur dieses Bild (Item? klüger übersetzen)"
 
 #: models/__init__.py:450
 msgid "this item and all children"
@@ -135,27 +139,27 @@ msgstr ""
 
 #: models/__init__.py:454
 msgid "type"
-msgstr ""
+msgstr "Art (klüger übersetzen)"
 
 #: models/__init__.py:455
 msgid "user"
-msgstr ""
+msgstr "Nutzer"
 
 #: models/__init__.py:456
 msgid "group"
-msgstr ""
+msgstr "Gruppe"
 
 #: models/__init__.py:457
 msgid "everybody"
-msgstr ""
+msgstr "Jeder"
 
 #: models/__init__.py:459
 msgid "can edit"
-msgstr ""
+msgstr "kann bearbeiten"
 
 #: models/__init__.py:460
 msgid "can read"
-msgstr ""
+msgstr "kann lesen"
 
 #: models/__init__.py:461
 msgid "can add children"
@@ -163,11 +167,11 @@ msgstr ""
 
 #: models/__init__.py:469
 msgid "All Folders"
-msgstr ""
+msgstr "Alle Ordner"
 
 #: models/__init__.py:473
 msgid "Everybody"
-msgstr ""
+msgstr "Jeder"
 
 #: models/__init__.py:476
 #, python-format
@@ -186,76 +190,81 @@ msgstr ""
 
 #: models/__init__.py:489
 msgid "Folder Permission"
-msgstr ""
+msgstr "Ordner Recht"
 
 #: models/__init__.py:490
 msgid "Folder Permissions"
-msgstr ""
+msgstr "Ordner Rechte"
 
 #: models/__init__.py:494
 msgid "clipboard"
-msgstr ""
+msgstr "Zwischenablage"
 
 #: models/__init__.py:495
 msgid "files"
-msgstr ""
+msgstr "Dateien"
 
 #: models/__init__.py:513
 #, python-format
 msgid "Clipboard %(clipboard_id)s of %(user)s"
 msgstr ""
 
-#: models/__init__.py:558 templates/image_filer/include/search_form.html:24
+#: models/__init__.py:558
+#: templates/image_filer/include/search_form.html:24
 msgid "unfiled files"
-msgstr ""
+msgstr "unfiled files"
 
-#: models/__init__.py:567 templates/image_filer/include/search_form.html:23
+#: models/__init__.py:567
+#: templates/image_filer/include/search_form.html:23
 msgid "files with missing metadata"
 msgstr ""
 
 #: models/__init__.py:594
 msgid "left"
-msgstr ""
+msgstr "links"
 
 #: models/__init__.py:595
 msgid "right"
-msgstr ""
+msgstr "rechts"
 
 #: models/__init__.py:598
 msgid "alt text"
-msgstr ""
+msgstr "Alt-Text"
 
 #: models/__init__.py:599
 msgid "caption"
-msgstr ""
+msgstr "Bildtitel"
 
 #: models/__init__.py:600
 msgid "width"
-msgstr ""
+msgstr "Breite"
 
 #: models/__init__.py:601
 msgid "height"
-msgstr ""
+msgstr "Höhe"
 
 #: models/__init__.py:603
 msgid "long description"
-msgstr ""
+msgstr "Bildbeschreibung"
 
-#: models/__init__.py:604 models/__init__.py:645
+#: models/__init__.py:604
+#: models/__init__.py:645
 msgid "link"
-msgstr ""
+msgstr "Link"
 
-#: models/__init__.py:604 models/__init__.py:605
+#: models/__init__.py:604
+#: models/__init__.py:605
 msgid "if present image will be clickable"
 msgstr ""
 
-#: models/__init__.py:605 models/__init__.py:644
+#: models/__init__.py:605
+#: models/__init__.py:644
 msgid "page"
-msgstr ""
+msgstr "Seite (page)"
 
 #: models/__init__.py:606
 msgid "side"
-msgstr ""
+msgstr "Seite (side)"
 
 #: models/__init__.py:627
 #, python-format
@@ -264,7 +273,7 @@ msgstr ""
 
 #: models/__init__.py:642
 msgid "title"
-msgstr ""
+msgstr "Titel"
 
 #: models/__init__.py:644
 msgid "If present image will be clickable"
@@ -276,15 +285,17 @@ msgstr ""
 
 #: models/__init__.py:646
 msgid "description"
-msgstr ""
+msgstr "Beschreibung"
 
-#: models/__init__.py:652 models/__init__.py:653
+#: models/__init__.py:652
+#: models/__init__.py:653
 msgid "image filer teaser"
-msgstr ""
+msgstr "image filer teaser (klug übersetzen)"
 
-#: models/__init__.py:662 models/__init__.py:663
+#: models/__init__.py:662
+#: models/__init__.py:663
 msgid "folder publication"
-msgstr ""
+msgstr "Ordner Veröffentlichung"
 
 #: templates/admin/image_filer/app_index.html:10
 #, python-format
@@ -298,24 +309,24 @@ msgstr ""
 
 #: templates/admin/image_filer/app_index.html:21
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: templates/admin/image_filer/app_index.html:27
 #: templates/image_filer/include/directory_table.html:22
 #: templates/image_filer/include/directory_table.html:36
 msgid "Change"
-msgstr ""
+msgstr "Ändern"
 
 #: templates/admin/image_filer/app_index.html:37
 msgid "You don't have permission to edit anything."
-msgstr ""
+msgstr "Die nötigen Rechte fehlen"
 
 #: templates/admin/image_filer/folder/change_form.html:6
 #: templates/admin/image_filer/image/change_form.html:6
 #: templates/image_filer/directory_listing.html:83
 #: templates/image_filer/image_export_form.html:3
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: templates/admin/image_filer/folder/change_form.html:6
 #: templates/admin/image_filer/image/change_form.html:7
@@ -329,12 +340,12 @@ msgstr ""
 #: templates/image_filer/directory_listing.html:84
 #: templates/image_filer/image_export_form.html:3
 msgid "Root"
-msgstr ""
+msgstr "Root"
 
 #: templates/admin/image_filer/folder/change_form.html:18
 #: templates/admin/image_filer/image/change_form.html:24
 msgid "History"
-msgstr ""
+msgstr "Verlauf"
 
 #: templates/admin/image_filer/folder/change_form.html:19
 #: templates/admin/image_filer/image/change_form.html:25
@@ -345,12 +356,12 @@ msgstr ""
 #: templates/image_filer/include/directory_table.html:19
 #: templates/image_filer/include/row_folder.html:6
 msgid "Folder Icon"
-msgstr ""
+msgstr "Ordner Icon"
 
 #: templates/admin/image_filer/image/change_form.html:23
 #: templates/image_filer/image_export_form.html:3
 msgid "Export"
-msgstr ""
+msgstr "Exportieren"
 
 #: templates/admin/image_filer/image/change_form.html:37
 msgid "Set focal point"
@@ -364,7 +375,7 @@ msgstr ""
 #: templates/image_filer/include/export_dialog.html:34
 #: templates/image_filer/include/new_folder_dialog.html:35
 msgid "New Folder"
-msgstr ""
+msgstr "Neuer Ordner"
 
 #: templates/image_filer/directory_listing.html:119
 #, python-format
@@ -397,16 +408,16 @@ msgstr ""
 
 #: templates/image_filer/image_export_form.html:11
 msgid "download image"
-msgstr ""
+msgstr "Bild herunterladen"
 
 #: templates/image_filer/include/clipboard.html:5
 #: templates/image_filer/include/directory_table.html:11
 msgid "Clipboard"
-msgstr ""
+msgstr "Zwischenablage"
 
 #: templates/image_filer/include/clipboard.html:12
 msgid "the clipboard is empty"
-msgstr ""
+msgstr "Die Zwischenablage ist leer"
 
 #: templates/image_filer/include/clipboard.html:24
 msgid "&larr; Paste"
@@ -414,12 +425,12 @@ msgstr ""
 
 #: templates/image_filer/include/clipboard.html:30
 msgid "Discard"
-msgstr ""
+msgstr "Verwerfen"
 
 #: templates/image_filer/include/directory_table.html:10
 #: templates/image_filer/include/tableheader.html:7
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: templates/image_filer/include/directory_table.html:17
 msgid "insert"
@@ -427,19 +438,19 @@ msgstr ""
 
 #: templates/image_filer/include/directory_table.html:24
 msgid "Owner:"
-msgstr ""
+msgstr "Fotograf:"
 
 #: templates/image_filer/include/directory_table.html:24
 msgid "Folders:"
-msgstr ""
+msgstr "Ordner:"
 
 #: templates/image_filer/include/directory_table.html:24
 msgid "Images:"
-msgstr ""
+msgstr "Bilder:"
 
 #: templates/image_filer/include/directory_table.html:40
 msgid "missing metadata!"
-msgstr ""
+msgstr "Metadaten fehlen!"
 
 #: templates/image_filer/include/directory_table.html:47
 msgid "Cut &rarr;"
@@ -455,15 +466,15 @@ msgstr ""
 
 #: templates/image_filer/include/new_folder_form.html:5
 msgid "Add folder"
-msgstr ""
+msgstr "Ordner hinzufügen"
 
 #: templates/image_filer/include/new_folder_form.html:13
 msgid "Name:"
-msgstr ""
+msgstr "Name:"
 
 #: templates/image_filer/include/new_folder_form.html:19
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: templates/image_filer/include/row_image.html:17
 msgid "move to clipboard"
@@ -471,11 +482,11 @@ msgstr ""
 
 #: templates/image_filer/include/search_form.html:8
 msgid "Search"
-msgstr ""
+msgstr "Suche (übersetzung klug?)"
 
 #: templates/image_filer/include/search_form.html:11
 msgid "Go"
-msgstr ""
+msgstr "Go (klüger übersetzen)"
 
 #: templates/image_filer/include/search_form.html:12
 msgid "limit search to current folder"
@@ -497,4 +508,5 @@ msgstr[1] ""
 
 #: templates/image_filer/include/search_form.html:17
 msgid "forget search"
-msgstr ""
+msgstr "Suche vergessen (klüger übersetzen)"
+
