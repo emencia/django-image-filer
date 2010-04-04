@@ -17,7 +17,7 @@ setup(
     long_description = read('README'),
     author = 'Stefan Foulis',
     author_email = 'stefan.foulis@gmail.com',
-    packages=find_packages(exclude=['ez_setup']),
+    packages=find_packages(),
     install_requires = [
         'sorl-thumbnail>=3.2.5',
         'django>=1.1',
@@ -31,6 +31,7 @@ setup(
             'media/*/img/*',
             'media/*/js/*',
             'media/*/slideshow2/*/*',
+            'locale/*/LC_MESSAGES/django.*',
             'templates/*/*.html',
             'templates/*/*/*.html',
             'templates/*/*/*/*.html',
