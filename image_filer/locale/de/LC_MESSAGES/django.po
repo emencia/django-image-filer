@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-02 13:51+0200\n"
-"PO-Revision-Date: 2010-04-02 14:17+0100\n"
+"PO-Revision-Date: 2010-04-05 21:25+0100\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr "Name (klüger übersetzen)"
 #: models/__init__.py:50
 #: models/__init__.py:80
 msgid "owner"
-msgstr "Eigentümer (klüger übersetzen)"
+msgstr "Author"
 
 #: models/__init__.py:52
 #: models/__init__.py:82
@@ -482,11 +482,11 @@ msgstr ""
 
 #: templates/image_filer/include/search_form.html:8
 msgid "Search"
-msgstr "Suche (übersetzung klug?)"
+msgstr "suchen"
 
 #: templates/image_filer/include/search_form.html:11
 msgid "Go"
-msgstr "Go (klüger übersetzen)"
+msgstr "anwenden"
 
 #: templates/image_filer/include/search_form.html:12
 msgid "limit search to current folder"
@@ -508,5 +508,5 @@ msgstr[1] ""
 
 #: templates/image_filer/include/search_form.html:17
 msgid "forget search"
-msgstr "Suche vergessen (klüger übersetzen)"
+msgstr "Suche leeren"
 
