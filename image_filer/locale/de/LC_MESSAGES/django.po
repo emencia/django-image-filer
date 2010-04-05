@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-02 13:51+0200\n"
-"PO-Revision-Date: 2010-04-05 21:25+0100\n"
+"PO-Revision-Date: 2010-04-05 22:44+0100\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "Bildstrecke (Ordner)"
 
 #: cms_plugins.py:89
 msgid "Slideshow of image folder"
-msgstr ""
+msgstr "Ungenutzes plugin, wird noch entfernt"
 
 #: fields.py:38
 msgid "image missing!"
@@ -60,7 +60,7 @@ msgstr "Original Dateiname"
 #: models/__init__.py:48
 #: models/__init__.py:78
 msgid "name"
-msgstr "Name (klüger übersetzen)"
+msgstr "Name"
 
 #: models/__init__.py:50
 #: models/__init__.py:80
@@ -127,11 +127,11 @@ msgstr "Ort der Aufnahme"
 
 #: models/__init__.py:448
 msgid "all items"
-msgstr "Alle items (klüger übersetzen)"
+msgstr "Alle Objekte"
 
 #: models/__init__.py:449
 msgid "this item only"
-msgstr "Nur dieses Bild (Item? klüger übersetzen)"
+msgstr "Nur dieses Objekt"
 
 #: models/__init__.py:450
 msgid "this item and all children"
@@ -139,7 +139,7 @@ msgstr ""
 
 #: models/__init__.py:454
 msgid "type"
-msgstr "Art (klüger übersetzen)"
+msgstr "Typ"
 
 #: models/__init__.py:455
 msgid "user"
@@ -190,11 +190,11 @@ msgstr ""
 
 #: models/__init__.py:489
 msgid "Folder Permission"
-msgstr "Ordner Recht"
+msgstr "Ordner Berechtigung"
 
 #: models/__init__.py:490
 msgid "Folder Permissions"
-msgstr "Ordner Rechte"
+msgstr "Ordner Berechtigungen"
 
 #: models/__init__.py:494
 msgid "clipboard"
