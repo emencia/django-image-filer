@@ -167,7 +167,7 @@ class Folder(models.Model):
         unique_together = (('parent','name'),)
         ordering = ('name',)
         permissions = (
-            ("can_use_directory_listing", _("Can use directory listing")),
+            ("can_use_directory_listing", "Can use directory listing"),
         )
 
 # MPTT registration
