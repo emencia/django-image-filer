@@ -169,6 +169,9 @@ class Folder(models.Model):
         permissions = (
             ("can_use_directory_listing", "Can use directory listing"),
         )
+        verbose_name = _('folder')
+        verbose_name_plural = _('folder')
+
 
 # MPTT registration
 try:
@@ -373,6 +376,10 @@ class Image(AbstractFile):
         # allows the sorl thumbnail tag to use the Image model
         # as if it was a image field
         return self.rel_image_url
+
+    class Meta:
+        verbose_name = _('image')
+        verbose_name_plural = _('images')
 
 
 class FolderPermissionManager(models.Manager):
