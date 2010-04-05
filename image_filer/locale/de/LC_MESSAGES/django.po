@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-02 13:51+0200\n"
+"POT-Creation-Date: 2010-04-05 22:46+0200\n"
 "PO-Revision-Date: 2010-04-05 22:44+0100\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,20 +36,19 @@ msgstr "Ungenutzes plugin, wird noch entfernt"
 msgid "image missing!"
 msgstr "fehlendes Bild!"
 
-#: fields.py:47
-#: fields.py:132
+#: fields.py:47 fields.py:132
 msgid "Lookup"
 msgstr ""
 
-#: admin/__init__.py:296
+#: admin/__init__.py:295
 msgid "Clipboard item"
 msgstr "Zwischenablage Item"
 
-#: admin/__init__.py:297
+#: admin/__init__.py:296
 msgid "Clipboards items"
 msgstr "Zwischenablage Items"
 
-#: models/__init__.py:45
+#: models/__init__.py:45 models/__init__.py:172 models/__init__.py:173
 msgid "folder"
 msgstr "Ordner"
 
@@ -57,59 +56,60 @@ msgstr "Ordner"
 msgid "original filename"
 msgstr "Original Dateiname"
 
-#: models/__init__.py:48
-#: models/__init__.py:78
+#: models/__init__.py:48 models/__init__.py:81
 msgid "name"
 msgstr "Name"
 
-#: models/__init__.py:50
-#: models/__init__.py:80
+#: models/__init__.py:50 models/__init__.py:83
 msgid "owner"
 msgstr "Author"
 
-#: models/__init__.py:52
-#: models/__init__.py:82
+#: models/__init__.py:52 models/__init__.py:85
 msgid "uploaded at"
 msgstr "Hochgeladen am"
 
-#: models/__init__.py:53
-#: models/__init__.py:85
+#: models/__init__.py:53 models/__init__.py:88
 msgid "modified at"
 msgstr "verändert am"
 
-#: models/__init__.py:77
+#: models/__init__.py:55
+#, fuzzy
+msgid "order"
+msgstr "Ordner"
+
+#: models/__init__.py:80
 msgid "parent"
 msgstr ""
 
-#: models/__init__.py:84
+#: models/__init__.py:87
 msgid "created at"
 msgstr "Erstellt am"
 
-#: models/__init__.py:199
+#: models/__init__.py:207
 msgid "date taken"
 msgstr ""
 
-#: models/__init__.py:201
+#: models/__init__.py:209
 msgid "contact"
 msgstr "Kontakt"
 
-#: models/__init__.py:203
+#: models/__init__.py:211
 msgid "default alt text"
 msgstr "Standard Alt-Text"
 
-#: models/__init__.py:204
+#: models/__init__.py:212
 msgid "default caption"
 msgstr "Standard Bildbeschreibung"
 
-#: models/__init__.py:206
+#: models/__init__.py:214
 msgid "author"
 msgstr "Fotograf"
 
-#: models/__init__.py:208
+#: models/__init__.py:216
 msgid "must always publish author credit"
 msgstr ""
 
-#: models/__init__.py:209
+#: models/__init__.py:217
 msgid "must always publish copyright"
 msgstr ""
 
@@ -117,183 +117,186 @@ msgstr ""
 msgid "notes"
 msgstr "Bemerkungen (nicht öffentlich)"
 
-#: models/__init__.py:221
+#: models/__init__.py:220
 msgid "has all mandatory data"
 msgstr ""
 
-#: models/__init__.py:223
+#: models/__init__.py:221
 msgid "subject location"
 msgstr "Ort der Aufnahme"
 
-#: models/__init__.py:448
+#: models/__init__.py:381
+#, fuzzy
+msgid "image"
+msgstr "Seite (page)"
+
+#: models/__init__.py:382
+#, fuzzy
+msgid "images"
+msgstr "Bilder:"
+
+#: models/__init__.py:450
 msgid "all items"
 msgstr "Alle Objekte"
 
-#: models/__init__.py:449
+#: models/__init__.py:451
 msgid "this item only"
 msgstr "Nur dieses Objekt"
 
-#: models/__init__.py:450
+#: models/__init__.py:452
 msgid "this item and all children"
 msgstr ""
 
-#: models/__init__.py:454
+#: models/__init__.py:456
 msgid "type"
 msgstr "Typ"
 
-#: models/__init__.py:455
+#: models/__init__.py:457
 msgid "user"
 msgstr "Nutzer"
 
-#: models/__init__.py:456
+#: models/__init__.py:458
 msgid "group"
 msgstr "Gruppe"
 
-#: models/__init__.py:457
+#: models/__init__.py:459
 msgid "everybody"
 msgstr "Jeder"
 
-#: models/__init__.py:459
+#: models/__init__.py:461
 msgid "can edit"
 msgstr "kann bearbeiten"
 
-#: models/__init__.py:460
+#: models/__init__.py:462
 msgid "can read"
 msgstr "kann lesen"
 
-#: models/__init__.py:461
+#: models/__init__.py:463
 msgid "can add children"
 msgstr ""
 
-#: models/__init__.py:469
+#: models/__init__.py:471
 msgid "All Folders"
 msgstr "Alle Ordner"
 
-#: models/__init__.py:473
+#: models/__init__.py:475
 msgid "Everybody"
 msgstr "Jeder"
 
-#: models/__init__.py:476
+#: models/__init__.py:478
 #, python-format
 msgid "Group: %s"
 msgstr ""
 
-#: models/__init__.py:478
+#: models/__init__.py:480
 #, python-format
 msgid "User: %s"
 msgstr ""
 
-#: models/__init__.py:485
+#: models/__init__.py:487
 #, python-format
 msgid "Folder: '%(name)s'->%(type)s [%(perms)s] [%(usergroup)s]"
 msgstr ""
 
-#: models/__init__.py:489
+#: models/__init__.py:491
 msgid "Folder Permission"
 msgstr "Ordner Berechtigung"
 
-#: models/__init__.py:490
+#: models/__init__.py:492
 msgid "Folder Permissions"
 msgstr "Ordner Berechtigungen"
 
-#: models/__init__.py:494
+#: models/__init__.py:496
 msgid "clipboard"
 msgstr "Zwischenablage"
 
-#: models/__init__.py:495
+#: models/__init__.py:497
 msgid "files"
 msgstr "Dateien"
 
-#: models/__init__.py:513
+#: models/__init__.py:515
 #, python-format
 msgid "Clipboard %(clipboard_id)s of %(user)s"
 msgstr ""
 
-#: models/__init__.py:558
-#: templates/image_filer/include/search_form.html:24
+#: models/__init__.py:560 templates/image_filer/include/search_form.html:24
 msgid "unfiled files"
 msgstr "unfiled files"
 
-#: models/__init__.py:567
-#: templates/image_filer/include/search_form.html:23
+#: models/__init__.py:569 templates/image_filer/include/search_form.html:23
 msgid "files with missing metadata"
 msgstr ""
 
-#: models/__init__.py:594
+#: models/__init__.py:596
 msgid "left"
 msgstr "links"
 
-#: models/__init__.py:595
+#: models/__init__.py:597
 msgid "right"
 msgstr "rechts"
 
-#: models/__init__.py:598
+#: models/__init__.py:600
 msgid "alt text"
 msgstr "Alt-Text"
 
-#: models/__init__.py:599
+#: models/__init__.py:601
 msgid "caption"
 msgstr "Bildtitel"
 
-#: models/__init__.py:600
+#: models/__init__.py:602
 msgid "width"
 msgstr "Breite"
 
-#: models/__init__.py:601
+#: models/__init__.py:603
 msgid "height"
 msgstr "Höhe"
 
-#: models/__init__.py:603
+#: models/__init__.py:605
 msgid "long description"
 msgstr "Bildbeschreibung"
 
-#: models/__init__.py:604
-#: models/__init__.py:645
+#: models/__init__.py:606 models/__init__.py:647
 msgid "link"
 msgstr "Link"
 
-#: models/__init__.py:604
-#: models/__init__.py:605
+#: models/__init__.py:606 models/__init__.py:607
 msgid "if present image will be clickable"
 msgstr ""
 
-#: models/__init__.py:605
-#: models/__init__.py:644
+#: models/__init__.py:607 models/__init__.py:646
 msgid "page"
 msgstr "Seite (page)"
 
-#: models/__init__.py:606
+#: models/__init__.py:608
 msgid "side"
 msgstr "Seite (side)"
 
-#: models/__init__.py:627
+#: models/__init__.py:629
 #, python-format
 msgid "Image Publication %s"
 msgstr ""
 
-#: models/__init__.py:642
+#: models/__init__.py:644
 msgid "title"
 msgstr "Titel"
 
-#: models/__init__.py:644
+#: models/__init__.py:646
 msgid "If present image will be clickable"
 msgstr ""
 
-#: models/__init__.py:645
+#: models/__init__.py:647
 msgid "If present image will be clickable."
 msgstr ""
 
-#: models/__init__.py:646
+#: models/__init__.py:648
 msgid "description"
 msgstr "Beschreibung"
 
-#: models/__init__.py:652
-#: models/__init__.py:653
+#: models/__init__.py:654 models/__init__.py:655
 msgid "image filer teaser"
 msgstr "image filer teaser (klug übersetzen)"
 
-#: models/__init__.py:662
-#: models/__init__.py:663
+#: models/__init__.py:664 models/__init__.py:665
 msgid "folder publication"
 msgstr "Ordner Veröffentlichung"
 
@@ -509,4 +512,3 @@ msgstr[1] ""
 #: templates/image_filer/include/search_form.html:17
 msgid "forget search"
 msgstr "Suche leeren"
-
