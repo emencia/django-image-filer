@@ -452,7 +452,7 @@ msgstr ""
 
 #: templates/image_filer/include/directory_table.html:24
 msgid "Owner:"
-msgstr "Fotograf:"
+msgstr "Owner:"
 
 #: templates/image_filer/include/directory_table.html:24
 msgid "Folders:"
