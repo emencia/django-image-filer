@@ -592,9 +592,11 @@ if 'cms' in settings.INSTALLED_APPS:
     class ImagePublication(CMSPlugin):
         LEFT = "left"
         RIGHT = "right"
+        CENTER = "center"
         FLOAT_CHOICES = (
             (LEFT, _("left")),
             (RIGHT, _("right")),
+            (CENTER, _("center")),
         )
         image = ImageFilerModelImageField()
         alt_text = models.CharField(_('alt text'), null=True, blank=True, max_length=255)
