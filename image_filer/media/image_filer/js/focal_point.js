@@ -54,6 +54,13 @@ $(function(){
 	}
 	
 	function updatePosition(x, y) {
+	    if (x < 1) {
+	        x = 1;
+	    }
+	    
+	    if (y < 1) {
+	        y = 1;
+	    }
 		$("#id_subject_location").val(x === undefined ? '' : parseInt(parseInt(x)*ratio) + ',' + parseInt(parseInt(y)*ratio) );
 	}
 	
