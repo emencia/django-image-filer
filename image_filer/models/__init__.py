@@ -58,7 +58,7 @@ class AbstractFile(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ('order',)
+        ordering = ('order', 'original_filename')
 
 class Folder(models.Model):
     """
