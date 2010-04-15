@@ -117,8 +117,11 @@ class Folder(models.Model):
         rel = self._get_file_relationships()
         result = []
         for files in rel:
-            for file in files.all():
+            print files
+#            for file in files.all():
+            for file in files.order_by('order', 'original_filename'):
                 result.append(file)
+        print result
         return result
 
     def has_edit_permission(self, request):
