@@ -62,7 +62,7 @@ class ImageAdmin(PrimitivePermissionAwareModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'contact', 'owner', 'order')
+            'fields': ('name', 'original_filename', 'contact', 'owner', 'order')
         }),
         (None, {
             'fields': ('subject_location',),

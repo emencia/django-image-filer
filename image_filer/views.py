@@ -97,7 +97,7 @@ def directory_listing(request, folder_id=None, viewtype=None):
         show_result_count = False
 
     folder_qs = folder_qs.order_by('name')
-    image_qs = image_qs.order_by('-order', 'name')
+    image_qs = image_qs.order_by('order', 'name')
 
     folder_children = []
     folder_files = []
