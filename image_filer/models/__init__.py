@@ -117,8 +117,6 @@ class Folder(models.Model):
         rel = self._get_file_relationships()
         result = []
         for files in rel:
-            print files
-#            for file in files.all():
             for file in files.order_by('order', 'original_filename'):
                 result.append(file)
         print result
