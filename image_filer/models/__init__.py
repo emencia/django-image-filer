@@ -119,7 +119,6 @@ class Folder(models.Model):
         for files in rel:
             for file in files.order_by('order', 'original_filename'):
                 result.append(file)
-        print result
         return result
 
     def has_edit_permission(self, request):
@@ -656,6 +655,7 @@ if 'cms' in settings.INSTALLED_APPS:
 
     class FolderPublication(CMSPlugin):
         folder = ImageFilerModelFolderField()
+        folder_title = models.CharField(null=True, blank=True, max_length=255)
 
         class Meta:
             db_table = 'cmsplugin_imagefolder'

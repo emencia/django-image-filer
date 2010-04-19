@@ -6,7 +6,7 @@
         <form id="changelist-search" action="" method="get">
             <div><!-- DIV needed for valid HTML -->
             <label for="searchbar"><img src="{% admin_media_prefix %}img/admin/icon_searchbox.png" alt="{% trans "Search" %}" /></label>
-            {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
+            {% if is_popup %}<input type="hidden" name="_popup" value="1" /><input type="hidden" name="select_folder" value="1" />{% endif %}
             <input type="text" size="40" name="q" value="{{ search_string }}" id="searchbar" />
             <input type="submit" value="{% trans 'Go' %}" />
             <input type="checkbox" id="limit_search_to_folder" name="limit_search_to_folder"{% if limit_search_to_folder %} checked{% endif %} /> <label for="limit_search_to_folder">{% trans "limit search to current folder" %}</label>
